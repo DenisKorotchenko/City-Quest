@@ -1,5 +1,6 @@
 package com.deniskorotchenko.mapsp
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_maps.*
 import java.util.jar.Manifest
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -102,5 +104,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .title("Новая Голландия")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 )
+
+        button1.setOnClickListener {
+            val intent = Intent(this, QuestMapActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
