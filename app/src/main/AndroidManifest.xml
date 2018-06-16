@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.deniskorotchenko.mapsp">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!--
+    Эта строчка запрашивает доступ к определению точной локации android смартфона,
+     поэтому НЕ ТРОГАТЬ ЭТУ СТРОЧКУ ВООБЩЕ!!!
+    -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,20 +31,25 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
-            <!---<intent-filter>
+
+            <!--
+            -<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-        <activity
-            android:name=".StartActivity">
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".QuestMapActivity"
+            android:label="@string/title_activity_quest_map"></activity>
     </application>
 
 </manifest>
