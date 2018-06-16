@@ -32,12 +32,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
+        /*val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
+
+        // Add a marker in Krestovskiy Ostrov
+        val firstQuest = LatLng(59.971944, 30.241794)
+        mMap.addMarker(MarkerOptions().position(firstQuest).title("First quest"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstQuest,12.0F)) // переводит камеру в СПб при открытии и масштабирование карты при открытии её в первый раз
+
+        val stadium = LatLng(59.972959, 30.220219)
+        mMap.addMarker(MarkerOptions().title("Zenit arena").position(stadium))
+
     }
 }
