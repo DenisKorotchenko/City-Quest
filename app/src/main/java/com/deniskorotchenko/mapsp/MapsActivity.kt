@@ -3,8 +3,6 @@ package com.deniskorotchenko.mapsp
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -13,7 +11,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import kotlinx.android.synthetic.main.activity_maps.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -34,13 +31,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         init() // в этой функции объявляем все маркеры и прочую дичь
 
-        button1.setOnClickListener {
-            val intent = Intent(this, QuestMapActivity::class.java)
-            startActivity(intent)
-        }
-
         mMap.setOnInfoWindowClickListener(GoogleMap.OnInfoWindowClickListener{
-            magic(button1) }) // при нажатии на инфо окно появляется кнопка старта
+            val intent = Intent(this, QuestMapActivity::class.java)
+            startActivity(intent) }) // при нажатии на инфо окно осуществляется переход к заданию
     }
 
     fun init(){
@@ -48,6 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val firstQuest = LatLng(59.971944, 30.241794)
         val markerKrestovskiy = mMap.addMarker(MarkerOptions()
                 .position(firstQuest)
+                .snippet("Нажмите на это окно один раз для старта")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .title("Крестовский остров")
         )
@@ -57,6 +51,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val markerStadium =mMap.addMarker(MarkerOptions()
                 .title("Стадион \"Санкт-Петербург\"")
                 .position(stadium)
+                .snippet("Нажмите на это окно один раз для старта")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
         )
 
@@ -68,6 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val markerCenter = mMap.addMarker(MarkerOptions()
                 .position(center)
                 .title("Адмиралтейство")
+                .snippet("Нажмите на это окно один раз для старта")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         )
 
@@ -75,12 +71,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val newHolland = LatLng(59.929470, 30.289756)
         val markerNewHolland = mMap.addMarker(MarkerOptions()
                 .position(newHolland)
+                .snippet("Нажмите на это окно один раз для старта")
                 .title("Новая Голландия")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         )
-    }
-
-    fun magic(button: Button){
-        button.visibility = View.VISIBLE
     }
 }
