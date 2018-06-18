@@ -1,5 +1,6 @@
 package com.deniskorotchenko.mapsp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -9,6 +10,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_quest_map.*
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -21,6 +23,14 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        imhere.setOnClickListener {
+            val intent = Intent(this, NotRight::class.java)
+            startActivity(intent)
+        }
+        imhere2.setOnClickListener {
+            val intent = Intent(this, Right::class.java)
+            startActivity(intent)
+        }
     }
 
     /**
