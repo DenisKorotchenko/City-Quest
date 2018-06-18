@@ -42,6 +42,25 @@
             android:text="Сброс"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32dp" />
+      <Button
+            android:id="@+id/imhere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textStart"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
+            android:layout_marginBottom="23dp"
+            android:text="I'm here!(not right)" />
+      
+        <Button
+            android:id="@+id/imhere2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imhere"
+            android:layout_alignEnd="@+id/button"
+            android:layout_alignRight="@+id/button"
+            android:layout_marginBottom="23dp"
+            android:text="I'm here!(right)" />
 
         <TextView
             android:id="@+id/textView"
