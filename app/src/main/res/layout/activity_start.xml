@@ -10,16 +10,17 @@
         android:id="@+id/button"
         android:layout_width="383dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:text="Начать!"
-        android:textSize="18dp"/>
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/textStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button"
-
         android:layout_centerHorizontal="true"
         android:text="Добро пожаловать в Квест!\nНажмите на кнопку, чтобы перейти к выбору квеста"
         android:textSize="18dp"

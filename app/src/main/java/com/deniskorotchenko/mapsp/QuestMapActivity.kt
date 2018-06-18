@@ -1,12 +1,15 @@
 package com.deniskorotchenko.mapsp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.os.Handler
+import android.widget.TextView
 
-import com.google.android.gms.maps.CameraUpdateFactory
+
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -16,7 +19,10 @@ import kotlinx.android.synthetic.main.activity_quest_map.*
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
+
     private lateinit var mMap: GoogleMap
+    private var sec: Int = 0 //Для секундомера
+    private var running: Boolean = false // Для секундомера
 
 
 
@@ -27,6 +33,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         buttonToQuestion.setOnClickListener {
 
@@ -45,23 +52,63 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
+
+        imhere.setOnClickListener {
+            val intent = Intent(this, NotRight::class.java)
+            startActivity(intent)
+        }
+        imhere2.setOnClickListener {
+            val intent = Intent(this, Right::class.java)
+            startActivity(intent)
+        }
+      
+      runTimer()
+
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        btnStart.setOnClickListener { onClickStart() }
+        btnReset.setOnClickListener { onClickReset() }
+        btnStop.setOnClickListener { onClickStop() }
     }
+
+
+    fun onClickStop(){
+        running = false
+    }
+
+
+    fun onClickStart(){
+        running = true
+    }
+
+
+    fun onClickReset(){
+        running = false
+        sec = 0
+    }
+
+
+    fun runTimer() {
+        val timerView: TextView = findViewById(R.id.textView)
+        val handler = Handler()
+        handler.post(object : Runnable {
+            override fun run() {
+                val hours = sec / 3600
+                val minutes = sec % 3600 / 60
+                val seconds = sec % 60
+                val time = String.format("%d:%02d:%02d", hours, minutes, seconds)
+                timerView.text = time
+                if (running) {
+                    sec++
+                }
+                handler.postDelayed(this, 1000)
+            }
+        })
+    }
+
+
 }

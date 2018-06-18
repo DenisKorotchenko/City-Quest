@@ -49,7 +49,11 @@
         </activity>
         <activity
             android:name=".QuestMapActivity"
-            android:label="@string/title_activity_quest_map"></activity>
+            android:label="@string/title_activity_quest_map" />
+        <activity android:name=".Right" />
+        <activity android:name=".NotRight" />
+        <activity android:name=".Not_Right" />
+        <activity android:name=".Last"></activity>
     </application>
 
 </manifest>
