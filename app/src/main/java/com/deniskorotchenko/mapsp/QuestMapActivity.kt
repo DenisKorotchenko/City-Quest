@@ -2,6 +2,9 @@ package com.deniskorotchenko.mapsp
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,18 +12,39 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.activity_quest_map.*
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quest_map)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment
+                .findFragmentById(R.id.questMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        buttonToQuestion.setOnClickListener {
+
+            /*val fTransaction = supportFragmentManager.beginTransaction()
+            fTransaction.replace(R.id.fragmentQuestion, questionTextFragment)
+            fTransaction.addToBackStack(null)
+            fTransaction.commit()*/
+            val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
+            val questionWindow = PopupWindow(questionFragmentView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+                    )
+            questionWindow.showAtLocation(fragmentQuestion, Gravity.CENTER, 0, 0)
+        }
+
+
+
     }
 
     /**
