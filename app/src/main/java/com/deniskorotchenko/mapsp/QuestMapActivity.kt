@@ -47,7 +47,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
                     )
-            questionWindow.showAtLocation(fragmentQuestion, Gravity.CENTER, 0, 0)
+            questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
 
