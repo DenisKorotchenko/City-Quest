@@ -57,10 +57,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
-            Log.v("MyLocation", "TRUE")
-        } else {
-            Log.v("MyLocation", "FALSE")
-            // Show rationale and request permission.
         }
     }
 

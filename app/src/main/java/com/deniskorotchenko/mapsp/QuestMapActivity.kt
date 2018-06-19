@@ -1,20 +1,23 @@
 package com.deniskorotchenko.mapsp
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.widget.TextView
+import com.google.android.gms.maps.CameraUpdateFactory
 
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_quest_map.*
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -32,7 +35,6 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
 
         buttonToQuestion.setOnClickListener {
             val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
@@ -72,6 +74,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     true
             )
            questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
+
         }
 
         runTimer()
@@ -82,29 +85,39 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        btnStart.setOnClickListener { onClickStart() }
+        btnStart.setOnClickListener { onClickStart() } // настраиваю кнопки таймера (здесь и ниже)
         btnReset.setOnClickListener { onClickReset() }
         btnStop.setOnClickListener { onClickStop() }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.isMyLocationEnabled = true
+        }
+
+        val center = LatLng(59.9367364, 30.3096995)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center , 15F))
     }
 
 
-    fun onClickStop() {
+    fun onClickStop(){ //функция секундомера
         running = false
     }
 
 
-    fun onClickStart() {
+
+    fun onClickStart(){ // ещё функция секундомера
         running = true
     }
 
 
-    fun onClickReset() {
+ 
+    fun onClickReset(){ // и ещё функция секундомера
         running = false
         sec = 0
     }
 
 
-    fun runTimer() {
+    fun runTimer() { // сам секундомер
         val timerView: TextView = findViewById(R.id.textView)
         val handler = Handler()
         handler.post(object : Runnable {
