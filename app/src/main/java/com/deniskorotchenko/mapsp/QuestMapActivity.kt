@@ -28,7 +28,6 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var running: Boolean = false // Для секундомера
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quest_map)
@@ -43,21 +42,42 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
-                    )
+            )
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-        imhere.setOnClickListener {
-            val intent = Intent(this, NotRight::class.java)
-            startActivity(intent)
+        tip.setOnClickListener {
+            val questionFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
+            val questionWindow = PopupWindow(questionFragmentView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+            questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-        imhere2.setOnClickListener {
-            val intent = Intent(this, Right::class.java)
-            startActivity(intent)
+       imhere.setOnClickListener {
+           val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
+          val questionWindow = PopupWindow(NotRightFragmentView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+            questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
         }
-      
-      runTimer()
+
+       imhere2.setOnClickListener {
+            val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentright, null)
+            val questionWindow = PopupWindow(NotRightFragmentView,
+                   LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+           questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
+
+        }
+
+        runTimer()
 
     }
 
@@ -84,11 +104,13 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
+
     fun onClickStart(){ // ещё функция секундомера
         running = true
     }
 
 
+ 
     fun onClickReset(){ // и ещё функция секундомера
         running = false
         sec = 0
