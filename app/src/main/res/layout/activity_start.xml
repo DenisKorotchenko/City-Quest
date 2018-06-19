@@ -25,4 +25,5 @@
         android:text="Добро пожаловать в Квест!\nНажмите на кнопку, чтобы перейти к выбору квеста"
         android:textSize="18dp"
         android:textAlignment="center"/>
+
 </RelativeLayout>
