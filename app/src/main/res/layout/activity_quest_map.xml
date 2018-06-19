@@ -16,36 +16,6 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/btnStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
-            android:text="Старт"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp" />
-
-        <Button
-            android:id="@+id/btnStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/btnStart"
-            android:layout_centerHorizontal="true"
-            android:text="Стоп" />
-
-        <Button
-            android:id="@+id/btnReset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/btnStop"
-            android:layout_marginEnd="32dp"
-            android:text="Сброс"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="32dp" />
-      <Button
             android:id="@+id/imhere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="..." />
+            android:text=" ? " />
 
         <TextView
             android:id="@+id/textView"
@@ -73,9 +43,10 @@
             android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="93dp"
             android:text="0:00:00"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:layout_marginBottom="30dp" />
+
     </RelativeLayout>
 
 </fragment>
