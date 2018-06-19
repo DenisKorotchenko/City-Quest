@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="23dp"
-            android:text="I'm here!(not right)" />
+            android:text="Я на месте! (неправильно)" />
       
         <Button
             android:id="@+id/imhere2"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imhere"
             android:layout_marginBottom="23dp"
-            android:text="I'm here!(right)" />
+            android:text="Я на месте! (правильно)" />
       
         <Button
             android:id="@+id/buttonToQuestion"
@@ -36,6 +36,17 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text=" ? " />
+
+            
+        <Button
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/buttonToQuestion"
+            android:text="подсказка"
+            android:visibility="visible"/>
+
 
         <TextView
             android:id="@+id/textView"
@@ -46,6 +57,18 @@
             android:text="0:00:00"
             android:textSize="30sp"
             android:layout_marginBottom="30dp" />
+
+
+        <!--<fragment
+            android:id="@+id/fragment_fragmentright"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <fragment
+            android:id="@+id/fragment_fragmentnotright"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
+
 
     </RelativeLayout>
 
