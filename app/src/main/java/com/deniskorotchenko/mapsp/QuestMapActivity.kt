@@ -1,8 +1,10 @@
 package com.deniskorotchenko.mapsp
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -10,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.location.Location
@@ -21,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
+import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
 
 
@@ -29,12 +33,15 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: View
     private var sec: Int = 0 //Для секундомера
+    private lateinit var dbHelper : QuestDatabase
+    private var singleton = Singleton.instance
     private var running: Boolean = true // Для секундомера
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quest_map)
+        dbHelper = QuestDatabase(this)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
@@ -47,7 +54,20 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
-            )
+                    )
+
+
+            val db = dbHelper.readableDatabase
+            val cursor = db.query(QuestDatabase.TABLE, arrayOf(QuestDatabase.QUESTION), null, null, null, null, null)
+
+            if (cursor.moveToFirst()) {
+                val question = cursor.getString(cursor.getColumnIndex(QuestDatabase.QUESTION))
+                questionFragmentView.textView.text = question
+            } else
+                Log.d("mLog", "0 rows")
+          
+            cursor.close()
+            db.close()
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
@@ -70,8 +90,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
         }
-
-       imhere2.setOnClickListener {
+        imhere2.setOnClickListener {
             val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentright, null)
             val questionWindow = PopupWindow(NotRightFragmentView,
                    LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -82,6 +101,21 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         }
         runTimer()
+
+        init()
+    }
+
+    private fun init(){
+        singleton.nowQuestion = 1
+        Log.v("NOWQOUESTION", singleton.nowQuestion.toString())
+
+        val db = dbHelper.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(QuestDatabase.QUESTION, "YESSSSSSS")
+        db.insert(QuestDatabase.TABLE, null, contentValues)
+        Log.v("DB", db.isOpen.toString())
+
+        db.close()
 
     }
 
