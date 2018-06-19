@@ -13,25 +13,29 @@ import android.widget.PopupWindow
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.View
 import android.widget.TextView
+import android.location.Location
+
+
 import com.google.android.gms.maps.CameraUpdateFactory
-
-
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
+import android.widget.RelativeLayout
+
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
-
     private lateinit var mMap: GoogleMap
+    private lateinit var mapView: View
     private var sec: Int = 0 //Для секундомера
-    private var running: Boolean = false // Для секундомера
     private lateinit var dbHelper : QuestDatabase
     private var singleton = Singleton.instance
+    private var running: Boolean = true // Для секундомера
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +45,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
+        mapView = mapFragment.getView()!!
         mapFragment.getMapAsync(this)
 
         buttonToQuestion.setOnClickListener {
@@ -60,25 +65,41 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 questionFragmentView.textView.text = question
             } else
                 Log.d("mLog", "0 rows")
-
+          
             cursor.close()
-
-
             db.close()
-
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-        imhere.setOnClickListener {
-            val intent = Intent(this, NotRight::class.java)
-            startActivity(intent)
+        tip.setOnClickListener {
+            val questionFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
+            val questionWindow = PopupWindow(questionFragmentView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+            questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-        imhere2.setOnClickListener {
-            val intent = Intent(this, Right::class.java)
-            startActivity(intent)
+       imhere.setOnClickListener {
+           val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
+          val questionWindow = PopupWindow(NotRightFragmentView,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+            questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
         }
-      
+        imhere2.setOnClickListener {
+            val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentright, null)
+            val questionWindow = PopupWindow(NotRightFragmentView,
+                   LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    true
+            )
+           questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
+
+        }
         runTimer()
 
         init()
@@ -96,17 +117,11 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         db.close()
 
-
-
     }
 
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        btnStart.setOnClickListener { onClickStart() } // настраиваю кнопки таймера (здесь и ниже)
-        btnReset.setOnClickListener { onClickReset() }
-        btnStop.setOnClickListener { onClickStop() }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -115,6 +130,13 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val center = LatLng(59.9367364, 30.3096995)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center , 15F))
+
+        //Эта штука переносит кнопку "Моё местоположение" в правый нижний угол
+        val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
+        val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
+        rlp.setMargins(0,0,30,30)
     }
 
 
@@ -122,15 +144,17 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         running = false
     }
 
+    fun onClickReset(){ // ещё функция секундомера
 
-    fun onClickStart(){ // ещё функция секундомера
-        running = true
-    }
-
-
-    fun onClickReset(){ // и ещё функция секундомера
         running = false
         sec = 0
+    }
+
+    private fun formatLocation(location: Location?): String {
+        return if (location == null) ""
+        else String.format(
+                "Coordinates: lat = %1$.4f, lon = %2$.4f, time = %3\$tF %3\$tT",
+                location.latitude, location.longitude)
     }
 
 
