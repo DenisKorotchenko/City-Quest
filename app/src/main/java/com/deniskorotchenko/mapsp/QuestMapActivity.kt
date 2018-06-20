@@ -137,7 +137,19 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
         rlp.setMargins(0,0,30,30)
+
+        mMap.setOnMyLocationChangeListener(object : GoogleMap.OnMyLocationChangeListener {
+
+            override fun onMyLocationChange(p0: Location?) {
+                println(p0?.latitude)
+                println(p0?.longitude)
+
+
+            }
+
+        })
     }
+
 
 
     fun onClickStop(){ //функция секундомера
