@@ -10,6 +10,7 @@ class Singleton private constructor() {
     }
     var nowQuestion : Int = 0
     var startTime : Long = 0
+    var finishTime : Long = 0
     val DATABASE_NAME = "questTest"
     val DATABASE_VERSION = 1
     var curentTableQuest = "quest1"
