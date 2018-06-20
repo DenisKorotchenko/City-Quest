@@ -34,7 +34,15 @@ import android.widget.RelativeLayout
 import java.util.*
 
 
-class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.OnFragmentInteractionListener {
+class QuestMapActivity :
+        AppCompatActivity(),
+        OnMapReadyCallback,
+        fragmentright.OnFragmentInteractionListener,
+        fragmentright.onNextListener {
+    override fun onNext() {
+        showQuestion()
+    }
+
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -72,16 +80,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.
 
 
         buttonToQuestion.setOnClickListener {
-            val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
-            val questionWindow = PopupWindow(questionFragmentView,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    true
-                    )
-            val questDatabase = QuestDatabase(this)
-            questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
-            questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
-            Log.v("DB", questDatabase.getNumberOfQuestions().toString())
+            showQuestion()
         }
 
         tip.setOnClickListener {
@@ -94,23 +93,8 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-
-       /*imhere.setOnClickListener {
-           val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
-          val questionWindow = PopupWindow(NotRightFragmentView,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    true
-            )
-            questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
-        }*/
-      
         imhere2.setOnClickListener {
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.container, frg1 as Fragment)
-            fragmentTransaction.addToBackStack(null)
-            //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
-            fragmentTransaction.commit()
+            showFragment()
         }
 
 
@@ -124,6 +108,26 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.
         if (singleton.startTime == 0.toLong()) {
             singleton.startTime = Calendar.getInstance().timeInMillis
         }
+    }
+
+    private fun showQuestion(){
+        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
+        val questionWindow = PopupWindow(questionFragmentView,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                true
+        )
+        val questDatabase = QuestDatabase(this)
+        questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
+        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+    }
+
+    private fun showFragment(){
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.container, frg1 as Fragment)
+        fragmentTransaction.addToBackStack(null)
+        //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
+        fragmentTransaction.commit()
     }
 
 
@@ -153,6 +157,8 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.
                 var loc = LatLng(p0?.latitude!!,p0?.longitude)// в этой переменной находятся свежие координаты
             }
         }) //какой-то звездец с получением координат
+
+        showQuestion()
     }
 
     fun onClickStop(){ //функция секундомера

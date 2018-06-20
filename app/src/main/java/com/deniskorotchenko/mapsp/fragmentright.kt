@@ -30,6 +30,10 @@ class fragmentright : Fragment() {
     private var mListener: OnFragmentInteractionListener? = null
     val singleton = Singleton.instance
 
+    interface onNextListener {
+        fun onNext() : Unit
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
@@ -41,19 +45,21 @@ class fragmentright : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_fragmentright, container, false)
+        val view = inflater.inflate(R.layout.fragment_fragmentright, container, false)
         view.textView.text="Вы на нужном месте! \n Пройдено ${singleton.nowQuestion}/${QuestDatabase(this.activity).getNumberOfQuestions()}.\n Нажмите для продолжения."
         view.next.setOnClickListener{
-            var db = QuestDatabase(this.activity).getNumberOfQuestions()
+            val db = QuestDatabase(this.activity).getNumberOfQuestions()
             if (singleton.nowQuestion == db){
                 val intent = Intent(this.activity, Last::class.java)
                 startActivity(intent)
             }else
                 singleton.nowQuestion++
             val fTr = this.activity.fragmentManager.beginTransaction()
+            val onNextListenerVal = activity as onNextListener
+            onNextListenerVal.onNext()
+
             fTr.remove(this)
             fTr.commit()
-
         }
 
         return view
