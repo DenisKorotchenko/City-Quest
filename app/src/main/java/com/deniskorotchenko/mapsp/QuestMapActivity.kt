@@ -45,6 +45,7 @@ class QuestMapActivity :
     private var singleton = Singleton.instance
     private var running: Boolean = true
     var frg1 : AnswerFragment = AnswerFragment.newInstance("","")
+    private lateinit var loc: LatLng //переменнадя с моими координатами
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,16 +59,6 @@ class QuestMapActivity :
                 .findFragmentById(R.id.questMap) as SupportMapFragment
         mapView = mapFragment.view!!
         mapFragment.getMapAsync(this)
-
-        /* получаем экземпляр FragmentTransaction
-        val fragmentManager = fragmentManager
-        val fragmentTransaction = fragmentManager
-                .beginTransaction()
-
-        // добавляем фрагмент
-        val myFragment = MyFragment()
-        fragmentTransaction.add(R.id.container, myFragment)
-        fragmentTransaction.commit()*/
 
 
 
@@ -93,6 +84,7 @@ class QuestMapActivity :
         runTimer()
         init()
     }
+
 
     private fun init() {
         singleton.nowQuestion = 1
@@ -146,11 +138,35 @@ class QuestMapActivity :
             override fun onMyLocationChange(p0: Location?) {
                 println(p0?.latitude)
                 println(p0?.longitude)
-                var loc = LatLng(p0?.latitude!!,p0?.longitude)// в этой переменной находятся свежие координаты
+                loc = LatLng(p0?.latitude!!,p0?.longitude)// в этой переменной находятся свежие координаты
             }
         }) //какой-то звездец с получением координат
 
         showQuestion()
+
+        var testTimes = LatLng(59.980677, 30.324468) // переменные для теста
+        var testHome = LatLng(59.844547, 30.374786)
+        var testNewYork = LatLng(40.773187, -73.973696)
+
+        println(getDistanceFromLatLonInKm(loc,testHome))
+    }
+
+
+    fun getDistanceFromLatLonInKm(place1: LatLng, place2: LatLng) : Double { // функция, высчитывающая расстояния
+        val R = 6371 // Радиус Земли в км
+        var dLat = deg2rad(place2.latitude-place1.latitude) // deg2rad находится ниже
+        var dLon = deg2rad(place2.longitude-place1.longitude)
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(place1.latitude)) * Math.cos(deg2rad(place2.latitude)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+        ;
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        var d = R * c // расстояние в км
+        return d
+    }
+
+    fun deg2rad(deg: Double): Double{ // переводит градусы в радианы
+        return deg * (Math.PI/180)
     }
 
     fun onClickStop(){ //функция секундомера
