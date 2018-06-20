@@ -41,7 +41,6 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quest_map)
-        dbHelper = QuestDatabase(this)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
@@ -55,20 +54,10 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
                     )
-
-
-            val db = dbHelper.readableDatabase
-            val cursor = db.query(QuestDatabase.TABLE, arrayOf(QuestDatabase.QUESTION), null, null, null, null, null)
-
-            if (cursor.moveToFirst()) {
-                val question = cursor.getString(cursor.getColumnIndex(QuestDatabase.QUESTION))
-                questionFragmentView.textView.text = question
-            } else
-                Log.d("mLog", "0 rows")
-          
-            cursor.close()
-            db.close()
+            val questDatabase = QuestDatabase(this)
+            questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+            Log.v("DB", questDatabase.getNumberOfQuestions().toString())
         }
 
         tip.setOnClickListener {
@@ -107,16 +96,6 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun init(){
         singleton.nowQuestion = 1
-        Log.v("NOWQOUESTION", singleton.nowQuestion.toString())
-
-        val db = dbHelper.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(QuestDatabase.QUESTION, "YESSSSSSS")
-        db.insert(QuestDatabase.TABLE, null, contentValues)
-        Log.v("DB", db.isOpen.toString())
-
-        db.close()
-
     }
 
 
