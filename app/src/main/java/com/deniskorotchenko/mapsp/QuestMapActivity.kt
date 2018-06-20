@@ -3,6 +3,7 @@ package com.deniskorotchenko.mapsp
 import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
+import android.app.Fragment
 import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
@@ -16,6 +17,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.location.Location
+import android.net.Uri
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,14 +30,18 @@ import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
 
 
-class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
+class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback, fragmentright.OnFragmentInteractionListener {
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: View
     private var sec: Int = 0 //Для секундомера
     private lateinit var dbHelper : QuestDatabase
     private var singleton = Singleton.instance
-    private var running: Boolean = true // Для секундомера
+    private var running: Boolean = true
+    var frg1 : fragmentright = fragmentright.newInstance("","")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +53,18 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.questMap) as SupportMapFragment
         mapView = mapFragment.getView()!!
         mapFragment.getMapAsync(this)
+
+        /* получаем экземпляр FragmentTransaction
+        val fragmentManager = fragmentManager
+        val fragmentTransaction = fragmentManager
+                .beginTransaction()
+
+        // добавляем фрагмент
+        val myFragment = MyFragment()
+        fragmentTransaction.add(R.id.container, myFragment)
+        fragmentTransaction.commit()*/
+
+
 
         buttonToQuestion.setOnClickListener {
             val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
@@ -81,7 +99,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-       imhere.setOnClickListener {
+       /*imhere.setOnClickListener {
            val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
           val questionWindow = PopupWindow(NotRightFragmentView,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -89,17 +107,19 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     true
             )
             questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
-        }
+        }*/
         imhere2.setOnClickListener {
-            val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentright, null)
-            val questionWindow = PopupWindow(NotRightFragmentView,
-                   LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    true
-            )
-           questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
+
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.container, frg1 as Fragment)
+            fragmentTransaction.addToBackStack(null)
+            //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
+            fragmentTransaction.commit()
+
 
         }
+
+
         runTimer()
 
         init()
@@ -143,8 +163,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onMyLocationChange(p0: Location?) {
                 println(p0?.latitude)
                 println(p0?.longitude)
-
-
+                var loc = LatLng(p0?.latitude!!,p0?.longitude)// в этой переменной находятся свежие координаты
             }
 
         })
