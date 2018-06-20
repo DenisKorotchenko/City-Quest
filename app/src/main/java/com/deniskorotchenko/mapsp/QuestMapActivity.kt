@@ -16,6 +16,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.location.Location
+import android.os.Build
+import android.support.annotation.RequiresApi
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,25 +28,28 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+import java.util.*
 
 
 class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: View
-    private var sec: Int = 0 //Для секундомера
-    private lateinit var dbHelper : QuestDatabase
+    private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
     private var running: Boolean = true // Для секундомера
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_quest_map)
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.questMap) as SupportMapFragment
-        mapView = mapFragment.getView()!!
+        mapView = mapFragment.view!!
         mapFragment.getMapAsync(this)
 
         buttonToQuestion.setOnClickListener {
@@ -70,9 +75,9 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
             questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
         }
 
-       imhere.setOnClickListener {
-           val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
-          val questionWindow = PopupWindow(NotRightFragmentView,
+        imhere.setOnClickListener {
+            val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentnotright, null)
+            val questionWindow = PopupWindow(NotRightFragmentView,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
@@ -82,20 +87,23 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         imhere2.setOnClickListener {
             val NotRightFragmentView = layoutInflater.inflate(R.layout.fragment_fragmentright, null)
             val questionWindow = PopupWindow(NotRightFragmentView,
-                   LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     true
             )
-           questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
+            questionWindow.showAtLocation(NotRightFragmentView, Gravity.CENTER, 0, 0)
 
         }
         runTimer()
-
         init()
     }
 
-    private fun init(){
+    private fun init() {
         singleton.nowQuestion = 1
+
+        if (singleton.startTime == 0.toLong()) {
+            singleton.startTime = Calendar.getInstance().timeInMillis
+        }
     }
 
 
@@ -108,23 +116,22 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         val center = LatLng(59.9367364, 30.3096995)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center , 15F))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15F))
 
         //Эта штука переносит кнопку "Моё местоположение" в правый нижний угол
-        val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
-        val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
-        rlp.setMargins(0,0,30,30)
+        val locationButton = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
+        val rlp = locationButton.layoutParams as (RelativeLayout.LayoutParams)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        rlp.setMargins(0, 0, 30, 30)
     }
 
 
-    fun onClickStop(){ //функция секундомера
+    fun onClickStop() { //функция секундомера
         running = false
     }
 
-    fun onClickReset(){ // ещё функция секундомера
-
+    fun onClickReset() { // ещё функция секундомера
         running = false
         sec = 0
     }
@@ -137,8 +144,8 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 
-    fun runTimer() { // сам секундомер
-        val timerView: TextView = findViewById(R.id.textView)
+    private fun runTimer() { // сам секундомер
+        val timerView = textView
         val handler = Handler()
         handler.post(object : Runnable {
             override fun run() {
@@ -147,9 +154,7 @@ class QuestMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 val seconds = sec % 60
                 val time = String.format("%d:%02d:%02d", hours, minutes, seconds)
                 timerView.text = time
-                if (running) {
-                    sec++
-                }
+                sec = (Calendar.getInstance().timeInMillis - singleton.startTime) / 1000
                 handler.postDelayed(this, 1000)
             }
         })
