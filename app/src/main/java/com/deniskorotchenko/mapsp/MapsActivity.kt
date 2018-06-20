@@ -48,6 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.setOnInfoWindowClickListener(GoogleMap.OnInfoWindowClickListener {
             val intent = Intent(this, QuestMapActivity::class.java)
+
             startActivity(intent)
         }) // при нажатии на инфо окно осуществляется переход к заданию
 

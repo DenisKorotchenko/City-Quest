@@ -8,20 +8,18 @@ import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_quest_map.*
-import kotlinx.android.synthetic.main.fragment_fragmentright.*
 import kotlinx.android.synthetic.main.fragment_fragmentright.view.*
 
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
-     * [fragmentright.OnFragmentInteractionListener] interface
+     * [AnswerFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [fragmentright.newInstance] factory method to
+ * Use the [AnswerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class fragmentright : Fragment() {
+class AnswerFragment : Fragment() {
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -46,9 +44,9 @@ class fragmentright : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_fragmentright, container, false)
-        view.textView.text="Вы на нужном месте! \n Пройдено ${singleton.nowQuestion}/${QuestDatabase(this.activity).getNumberOfQuestions()}.\n Нажмите для продолжения."
+        view.textView.text="Вы на нужном месте! \n Пройдено ${singleton.nowQuestion}/${QuestDataBase(this.activity).getNumberOfQuestions()}.\n Нажмите для продолжения."
         view.next.setOnClickListener{
-            val db = QuestDatabase(this.activity).getNumberOfQuestions()
+            val db = QuestDataBase(this.activity).getNumberOfQuestions()
             if (singleton.nowQuestion == db){
                 val intent = Intent(this.activity, Last::class.java)
                 startActivity(intent)
@@ -112,11 +110,11 @@ class fragmentright : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment fragmentright.
+         * @return A new instance of fragment AnswerFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): fragmentright {
-            val fragment = fragmentright()
+        fun newInstance(param1: String, param2: String): AnswerFragment {
+            val fragment = AnswerFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)

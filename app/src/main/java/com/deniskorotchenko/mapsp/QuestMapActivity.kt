@@ -1,11 +1,8 @@
 package com.deniskorotchenko.mapsp
 
 import android.Manifest
-import android.content.ContentValues
-import android.content.Intent
 import android.app.Fragment
 import android.content.pm.PackageManager
-import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -13,14 +10,9 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.os.Handler
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.location.Location
 import android.net.Uri
-import android.os.Build
-import android.support.annotation.RequiresApi
-
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -37,8 +29,8 @@ import java.util.*
 class QuestMapActivity :
         AppCompatActivity(),
         OnMapReadyCallback,
-        fragmentright.OnFragmentInteractionListener,
-        fragmentright.onNextListener {
+        AnswerFragment.OnFragmentInteractionListener,
+        AnswerFragment.onNextListener {
     override fun onNext() {
         showQuestion()
     }
@@ -52,7 +44,7 @@ class QuestMapActivity :
     private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
     private var running: Boolean = true
-    var frg1 : fragmentright = fragmentright.newInstance("","")
+    var frg1 : AnswerFragment = AnswerFragment.newInstance("","")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,7 +109,7 @@ class QuestMapActivity :
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 true
         )
-        val questDatabase = QuestDatabase(this)
+        val questDatabase = QuestDataBase(this)
         questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
         questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
     }
