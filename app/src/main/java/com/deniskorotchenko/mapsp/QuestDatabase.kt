@@ -32,8 +32,10 @@ class QuestDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME,
     fun getNumberOfQuestions() : Int{
         val db = readableDatabase
         val cursor = db.query(QuestDatabase.TABLE, null, null, null, null, null, null)
+        val res = cursor.count
         db.close()
-        return cursor.count
+        cursor.close()
+        return res
     }
 
     companion object {
