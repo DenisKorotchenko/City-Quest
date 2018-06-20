@@ -49,9 +49,9 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         catch (e : Exception){}
         Log.v("INITDATABASE", "first try")
         db.execSQL(("create table if not exists " + allTable + " ( "
-                + ID + " INTEGER PRIMARY KEY, "
-                + LAT + " REAL, "
-                + LNG + " REAL, "
+                + AllQuestsDataBase.ID + " INTEGER PRIMARY KEY, "
+                + AllQuestsDataBase.LAT + " REAL, "
+                + AllQuestsDataBase.LNG + " REAL, "
                 + AllQuestsDataBase.TABLENAME +" TEXT "
                 +");"))
         Log.v("INITDATABASE", "1table")

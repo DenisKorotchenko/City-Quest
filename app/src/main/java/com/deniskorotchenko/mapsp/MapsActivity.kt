@@ -44,7 +44,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        init() // в этой функции объявляем все маркеры и прочую дичь
+        //init() // в этой функции объявляем все маркеры и прочую дичь
+        initFromDataBase()
 
         mMap.setOnInfoWindowClickListener(GoogleMap.OnInfoWindowClickListener {
             val intent = Intent(this, QuestMapActivity::class.java)
@@ -56,6 +57,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.isMyLocationEnabled = true
+        }
+    }
+
+    fun initFromDataBase(){
+        val markers = AllQuestsDataBase(this).getAllMarkers()
+        Log.v("MapsActivity", markers.size.toString())
+        for (marker : MarkerInAll in markers){
+            val newMarker = mMap.addMarker(MarkerOptions()
+                    .position(marker.coordinats)
+                    .snippet("Нажмите на это окно один раз для старта")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    .title("TEST")
+            )
         }
     }
 
