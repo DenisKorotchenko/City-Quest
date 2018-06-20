@@ -8,8 +8,6 @@ import android.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_quest_map.*
-import kotlinx.android.synthetic.main.fragment_fragmentright.*
 import kotlinx.android.synthetic.main.fragment_fragmentright.view.*
 
 
@@ -46,9 +44,9 @@ class fragmentright : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_fragmentright, container, false)
-        view.textView.text="Вы на нужном месте! \n Пройдено ${singleton.nowQuestion}/${QuestDatabase(this.activity).getNumberOfQuestions()}.\n Нажмите для продолжения."
+        view.textView.text="Вы на нужном месте! \n Пройдено ${singleton.nowQuestion}/${QuestDataBase(this.activity).getNumberOfQuestions()}.\n Нажмите для продолжения."
         view.next.setOnClickListener{
-            val db = QuestDatabase(this.activity).getNumberOfQuestions()
+            val db = QuestDataBase(this.activity).getNumberOfQuestions()
             if (singleton.nowQuestion == db){
                 val intent = Intent(this.activity, Last::class.java)
                 startActivity(intent)
