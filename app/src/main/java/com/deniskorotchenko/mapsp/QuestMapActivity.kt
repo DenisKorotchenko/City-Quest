@@ -29,8 +29,8 @@ import java.util.*
 class QuestMapActivity :
         AppCompatActivity(),
         OnMapReadyCallback,
-        fragmentright.OnFragmentInteractionListener,
-        fragmentright.onNextListener {
+        AnswerFragment.OnFragmentInteractionListener,
+        AnswerFragment.onNextListener {
     override fun onNext() {
         showQuestion()
     }
@@ -44,7 +44,7 @@ class QuestMapActivity :
     private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
     private var running: Boolean = true
-    var frg1 : fragmentright = fragmentright.newInstance("","")
+    var frg1 : AnswerFragment = AnswerFragment.newInstance("","")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
