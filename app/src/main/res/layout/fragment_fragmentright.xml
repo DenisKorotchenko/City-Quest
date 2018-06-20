@@ -27,13 +27,5 @@
 
         android:text="Далее" />
 
-    <Button
-        android:id="@+id/tofinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/next"
-
-
-        android:text="Финиш" />
 
 </RelativeLayout>
