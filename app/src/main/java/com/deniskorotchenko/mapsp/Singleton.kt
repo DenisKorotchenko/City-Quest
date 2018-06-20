@@ -1,8 +1,7 @@
 package com.deniskorotchenko.mapsp
 
-/**
- * Created by user on 6/19/18.
- */
+import java.util.*
+
 class Singleton private constructor() {
     init { /*println("This ($this) is a singleton")*/ }
     private object Holder { val INSTANCE = Singleton() }
@@ -10,4 +9,5 @@ class Singleton private constructor() {
         val instance: Singleton by lazy { Holder.INSTANCE }
     }
     var nowQuestion : Int = 0
+    var startTime : Long = 0
 }
