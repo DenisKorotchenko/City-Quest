@@ -17,19 +17,13 @@
         android:id="@+id/container">
 
         <Button
-            android:id="@+id/imhere"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="23dp"
-            android:text="Я на месте! (неправильно)" />
-      
-        <Button
             android:id="@+id/imhere2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imhere"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginBottom="23dp"
-            android:text="Я на месте! (правильно)" />
+            android:text="Я на месте!" />
       
         <Button
             android:id="@+id/buttonToQuestion"

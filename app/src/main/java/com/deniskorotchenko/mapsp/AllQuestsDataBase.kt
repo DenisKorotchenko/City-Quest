@@ -16,7 +16,7 @@ class AllQuestsDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.
     }
 
     fun getAllMarkers() : List<MarkerInAll>{
-        var markers : MutableList<MarkerInAll> = mutableListOf()
+        val markers : MutableList<MarkerInAll> = mutableListOf()
         val db = readableDatabase
         val cursor = db.query(AllQuestsDataBase.TABLE, null, null, null, null, null, null)
         if (cursor.moveToFirst()){
@@ -45,5 +45,18 @@ class AllQuestsDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.
         val LAT = "lat"
         val LNG = "lng"
 
+    }
+
+    fun getTableQuestById(tag : Int): String {
+        val db = readableDatabase
+        val cursor = db.query(AllQuestsDataBase.TABLE, arrayOf(QuestDataBase.TABLENAME), QuestDataBase.ID + " = " + tag, null, null, null, null)
+
+        var ans = ""
+        if (cursor.moveToFirst()) {
+            ans = cursor.getString(cursor.getColumnIndex(QuestDataBase.TABLENAME))
+        }
+        db.close()
+        cursor.close()
+        return ans
     }
 }
