@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.fragment_false_answer.view.*
 class FalseAnswerFragment : Fragment() {
 
     val singleton = Singleton.instance
-
+    var isNeedTip = false
 
     interface FalseAnswerListener {
         fun onTip()
@@ -20,10 +20,16 @@ class FalseAnswerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_false_answer, container, false)
-        view.buttonHide.setOnClickListener {
-            val falseAnswerListener = activity as FalseAnswerListener
-            falseAnswerListener.onTip()
-            destroyThis()
+        if (isNeedTip == false){
+            view.falseTextView.text = "К сожалению, вы вновь не в нужном месте, попробуйте ещё раз"
+            view.buttonHide.visibility = View.GONE
+        }
+        else {
+            view.buttonHide.setOnClickListener {
+                val falseAnswerListener = activity as FalseAnswerListener
+                falseAnswerListener.onTip()
+                destroyThis()
+            }
         }
         view.buttonBack.setOnClickListener{
             destroyThis()
@@ -41,8 +47,9 @@ class FalseAnswerFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): FalseAnswerFragment {
+        fun newInstance(needTip : Boolean): FalseAnswerFragment {
             val fragment = FalseAnswerFragment()
+            fragment.isNeedTip = needTip
             return fragment
         }
     }

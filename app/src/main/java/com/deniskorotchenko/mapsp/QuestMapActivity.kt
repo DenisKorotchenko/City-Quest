@@ -46,7 +46,6 @@ class QuestMapActivity :
     private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
     var frgTrue : AnswerFragment = AnswerFragment.newInstance()
-    var frgFalse : FalseAnswerFragment = FalseAnswerFragment.newInstance()
     private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
 
 
@@ -69,13 +68,7 @@ class QuestMapActivity :
         }
 
         tip.setOnClickListener {
-            val questionFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
-            val questionWindow = PopupWindow(questionFragmentView,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    true
-            )
-            questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+            showTip()
         }
 
         imhere2.setOnClickListener {
@@ -86,7 +79,6 @@ class QuestMapActivity :
         runTimer()
         init()
     }
-
 
     private fun init() {
         singleton.nowQuestion = 1
@@ -102,6 +94,7 @@ class QuestMapActivity :
 
     private fun unhideTip(){
         tip.visibility = View.VISIBLE
+        showTip()
     }
 
     private fun showQuestion(){
@@ -120,11 +113,27 @@ class QuestMapActivity :
         val fragmentTransaction = fragmentManager.beginTransaction()
         if (QuestDataBase(this).checkAnswer(loc))
             fragmentTransaction.replace(R.id.container, frgTrue as Fragment)
-        else
+        else {
+            val frgFalse : FalseAnswerFragment = if (this.tip.visibility == View.GONE)
+                FalseAnswerFragment.newInstance(true)
+            else{
+                FalseAnswerFragment.newInstance(false)
+            }
             fragmentTransaction.replace(R.id.container, frgFalse as Fragment)
+        }
         fragmentTransaction.addToBackStack(null)
         //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
         fragmentTransaction.commit()
+    }
+
+    private fun showTip(){
+        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
+        val questionWindow = PopupWindow(questionFragmentView,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                true
+        )
+        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
     }
 
 
