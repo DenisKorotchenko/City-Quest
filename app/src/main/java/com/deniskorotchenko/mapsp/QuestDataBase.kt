@@ -131,9 +131,9 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
         contentValues.clear()
         contentValues.put(QUESTION, "БЦ Таймс")
-        contentValues.put(LAT, 49.980942)
+        contentValues.put(LAT, 59.980942)
         contentValues.put(LNG, 30.3247186)
-        contentValues.put(RADIUS, 10)
+        contentValues.put(RADIUS, 100)
         db.insert(table, null, contentValues)
 
         table = "quest2"
