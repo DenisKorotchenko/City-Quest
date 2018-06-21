@@ -117,7 +117,8 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
                 + AllQuestsDataBase.ID + " INTEGER PRIMARY KEY, "
                 + AllQuestsDataBase.LAT + " REAL, "
                 + AllQuestsDataBase.LNG + " REAL, "
-                + AllQuestsDataBase.TABLENAME +" TEXT "
+                + AllQuestsDataBase.TABLENAME +" TEXT, "
+                + AllQuestsDataBase.QUESTSTARTTEXT + " TEXT "
                 +");"))
         Log.v("INITDATABASE", "1table")
         var table : String = ""
@@ -127,6 +128,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(LAT, 59.980556)
         contentValues.put(LNG, 30.324234)
         contentValues.put(AllQuestsDataBase.TABLENAME, "quest1")
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Квест по БЦ Таймс")
         db.insert(allTable, null, contentValues)
 
         try {
@@ -155,6 +157,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(LAT, 50.0)
         contentValues.put(LNG, 30.0)
         contentValues.put(AllQuestsDataBase.TABLENAME, "quest2")
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Дорога в никуда")
         db.insert(allTable, null, contentValues)
 
         try {

@@ -67,7 +67,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .position(marker.coordinats)
                     .snippet("Нажмите на это окно один раз для старта")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                    .title("TEST")
+                    .title(marker.startText)
             )
             newMarker.tag = marker.questID
         }

@@ -24,7 +24,8 @@ class AllQuestsDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.
                 val markerID = cursor.getInt(cursor.getColumnIndex(AllQuestsDataBase.ID))
                 val latLng = LatLng(cursor.getDouble(cursor.getColumnIndex(AllQuestsDataBase.LAT)),
                         cursor.getDouble(cursor.getColumnIndex(AllQuestsDataBase.LNG)))
-                markers.add(MarkerInAll(markerID, latLng))
+                val startText = cursor.getString(cursor.getColumnIndex(AllQuestsDataBase.QUESTSTARTTEXT))
+                markers.add(MarkerInAll(markerID, latLng, startText))
             } while (cursor.moveToNext())
         }
         Log.v("AllQuestsDB", cursor.count.toString())
@@ -38,13 +39,12 @@ class AllQuestsDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.
     private val singleton = Singleton.instance
 
     companion object {
-
         val TABLE = "allquests"
         val TABLENAME = "tableName"
         val ID = "id"
         val LAT = "lat"
         val LNG = "lng"
-
+        val QUESTSTARTTEXT = "qst"
     }
 
     fun getTableQuestById(tag : Int): String {
