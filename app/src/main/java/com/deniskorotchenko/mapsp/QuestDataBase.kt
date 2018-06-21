@@ -25,7 +25,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         return distance < currentQuestionRadius()
     }
 
-    private fun currentQuestionLocation() : LatLng{
+    fun currentQuestionLocation() : LatLng{
         val db = readableDatabase
         val cursor = db.query(singleton.curentTableQuest, arrayOf(QuestDataBase.LAT, QuestDataBase.LNG), ID + " = " + singleton.nowQuestion, null, null, null, null)
 
@@ -178,7 +178,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(TIP, "Вы сюда не попадёте!!!")
         contentValues.put(LAT, 50.0)
         contentValues.put(LNG, 30.0)
-        contentValues.put(RADIUS, 100)
+        contentValues.put(RADIUS, 1000)
         db.insert(table, null, contentValues)
 
         db.close()
