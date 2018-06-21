@@ -23,16 +23,25 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="23dp"
-            android:text="Я на месте!" />
+            android:text=" Я на месте "
+            android:alpha="64"
+            android:background="@drawable/curclebuttontopleft"/>
 
-
+        <TextView
+            android:id="@+id/numQuestion"
+            android:textSize="11dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
 
         <Button
             android:id="@+id/buttonToQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text=" ? " >
+            android:text=" ? "
+            android:background="@drawable/curclebuttontopright">
 
         </Button>
 
@@ -43,7 +52,8 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/buttonToQuestion"
             android:text="подсказка"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:background="@drawable/curclebuttonmiddleright"/>
 
 
         <TextView

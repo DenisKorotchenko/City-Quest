@@ -36,6 +36,7 @@ class QuestMapActivity :
     override fun onNext() {
         hideTip()
         showQuestion()
+        numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
     }
     override fun onTip() {
         unhideTip()
