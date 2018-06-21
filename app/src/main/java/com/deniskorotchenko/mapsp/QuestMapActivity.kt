@@ -45,7 +45,7 @@ class QuestMapActivity :
     private var singleton = Singleton.instance
     private var running: Boolean = true
     var frg1 : AnswerFragment = AnswerFragment.newInstance("","")
-    private lateinit var loc: LatLng //переменнадя с моими координатами
+    private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +99,7 @@ class QuestMapActivity :
         val questionWindow = PopupWindow(questionFragmentView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                true
+                    true
         )
         val questDatabase = QuestDataBase(this)
         questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
