@@ -12,8 +12,6 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.location.Location
-import android.net.Uri
-import android.util.Log
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,22 +28,24 @@ import java.util.*
 class QuestMapActivity :
         AppCompatActivity(),
         OnMapReadyCallback,
-        AnswerFragment.OnFragmentInteractionListener,
-        AnswerFragment.OnNextListener {
+        AnswerFragment.AnswerFragmentListener,
+        FalseAnswerFragment.FalseAnswerListener{
     override fun onNext() {
+        hideTip()
         showQuestion()
     }
+    override fun onTip() {
+        unhideTip()
+    }
+    override fun onBackFromAnswer() {
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: View
     private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
-    private var running: Boolean = true
-    var frgTrue : AnswerFragment = AnswerFragment.newInstance("","")
+    var frgTrue : AnswerFragment = AnswerFragment.newInstance()
     var frgFalse : FalseAnswerFragment = FalseAnswerFragment.newInstance()
     private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
 
@@ -96,6 +96,14 @@ class QuestMapActivity :
         }
     }
 
+    private fun hideTip(){
+        tip.visibility = View.GONE
+    }
+
+    private fun unhideTip(){
+        tip.visibility = View.VISIBLE
+    }
+
     private fun showQuestion(){
         val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
         val questionWindow = PopupWindow(questionFragmentView,
@@ -137,7 +145,6 @@ class QuestMapActivity :
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
         rlp.setMargins(0,0,30,30)
-
       
         mMap.setOnMyLocationChangeListener(object : GoogleMap.OnMyLocationChangeListener {
             override fun onMyLocationChange(p0: Location?) {
@@ -148,45 +155,7 @@ class QuestMapActivity :
         }) //какой-то звездец с получением координат
 
         showQuestion()
-
-        var testTimes = LatLng(59.980677, 30.324468) // переменные для теста
-        var testHome = LatLng(59.844547, 30.374786)
-        var testNewYork = LatLng(40.773187, -73.973696)
-
-        println(getDistanceFromLatLonInKm(loc,testHome))
-    }
-
-    fun getDistanceFromLatLonInKm(place1: LatLng, place2: LatLng) : Double { // функция, высчитывающая расстояния
-        val R = 6371 // Радиус Земли в км
-        var dLat = deg2rad(place2.latitude-place1.latitude) // deg2rad находится ниже
-        var dLon = deg2rad(place2.longitude-place1.longitude)
-        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(deg2rad(place1.latitude)) * Math.cos(deg2rad(place2.latitude)) *
-                Math.sin(dLon/2) * Math.sin(dLon/2)
-        ;
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-        var d = R * c // расстояние в км
-        return d
-    }
-
-    fun deg2rad(deg: Double): Double{ // переводит градусы в радианы
-        return deg * (Math.PI/180)
-    }
-
-    fun onClickStop(){ //функция секундомера
-        running = false
-    }
-
-    fun onClickReset() { // ещё функция секундомера
-        running = false
-        sec = 0
-    }
-
-    private fun formatLocation(location: Location?): String {
-        return if (location == null) ""
-        else String.format(
-                "Coordinates: lat = %1$.4f, lon = %2$.4f, time = %3\$tF %3\$tT",
-                location.latitude, location.longitude)
+        hideTip()
     }
 
     private fun runTimer() { // сам секундомер

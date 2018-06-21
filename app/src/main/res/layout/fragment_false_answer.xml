@@ -15,13 +15,21 @@
         android:textSize="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="TEXT" />
+        android:text="Вы не в нужном месте. Хотите подсказку?" />
 
     <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonHide"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/falseTextView"/>
+        android:layout_below="@+id/falseTextView"
+        android:text="ДА"/>
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/buttonHide"
+        android:text="НАЗАД"/>
 
 </RelativeLayout>
