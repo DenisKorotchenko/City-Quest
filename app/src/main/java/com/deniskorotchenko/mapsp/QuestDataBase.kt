@@ -128,7 +128,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(LAT, 59.980556)
         contentValues.put(LNG, 30.324234)
         contentValues.put(AllQuestsDataBase.TABLENAME, "quest1")
-        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Квест по БЦ Таймс")
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "И поэтому улыбайся...")
         db.insert(allTable, null, contentValues)
 
         try {
@@ -145,12 +145,44 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
                 +");"))
 
         contentValues.clear()
-        contentValues.put(QUESTION, "БЦ Таймс")
-        contentValues.put(TIP, "204 ауд.")
-        contentValues.put(LAT, 59.980942)
-        contentValues.put(LNG, 30.3247186)
+        contentValues.put(QUESTION, "Акватория Финского залива...\nАкватория Невы...\nВсе они так недоступны для простого человека.\nНо вы-то знаете, что есть ещё одна Акватория, у которой даже есть вход для людей!")
+        contentValues.put(TIP, "Обратите внимание на то, что слово Акватория написано с заглавной буквы")
+        contentValues.put(LAT, 59.98025437989682)
+        contentValues.put(LNG, 30.322864419731786)
+        contentValues.put(RADIUS, 50)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Граф П.А. Строганов. В честь него многое названо - дворец, железнодорожная станция, сад рядом с метро Чёрная Речка.\n" +
+                "А ещё в честь него назван небольшой парк, к которому ведёт пешеходный мост через Чёрную Речку.\n" +
+                "Но этот мост вам не нужен. Вам нужен тот, что рядом, но по которому ни человек, ни машина проехать не смогут")
+        contentValues.put(TIP, "Это не совсем мост, скорее трубопровод")
+        contentValues.put(LAT, 59.98432686183018)
+        contentValues.put(LNG, 30.312572783660926)
         contentValues.put(RADIUS, 100)
         db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Москва - Деревня?\n" +
+                "Но оказывается, не только она, но и часть нынешнего Санкт-Петербурга когда-то была деревней.\n" +
+                "Все, конечно же, знают Старую Деревню, но, раз есть назвали 'Старая', значит, появилась 'Новая'\n" +
+                "Сейчас есть одно глобальное напоминание об этой 'Новой'. Найдите его, и учтите, что переходить на красный - нельзя")
+        contentValues.put(TIP, "Нужное вам место - некоторый большой транспортный объект")
+        contentValues.put(LAT, 59.9927116738247)
+        contentValues.put(LNG, 30.29946214599613)
+        contentValues.put(RADIUS, 200)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Погиб поэт! - невольник чести - \n" +
+                "Его убийцей был Дантес")
+        contentValues.put(TIP, "А где же был убит Александр Сергеевич?")
+        contentValues.put(LAT, 59.995028810239255)
+        contentValues.put(LNG, 30.30191368511646)
+        contentValues.put(RADIUS, 50)
+        db.insert(table, null, contentValues)
+
+
 
         table = "quest2"
         contentValues.clear()

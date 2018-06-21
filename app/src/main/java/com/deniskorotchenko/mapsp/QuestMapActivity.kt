@@ -13,6 +13,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.location.Location
+import android.text.method.ScrollingMovementMethod
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,7 +24,9 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+
 import com.google.android.gms.maps.model.CircleOptions
+import kotlinx.android.synthetic.main.fragment_question_text.view.*
 import kotlinx.android.synthetic.main.fragment_tip.view.*
 import java.util.*
 
@@ -37,6 +40,7 @@ class QuestMapActivity :
         hideTip()
         showQuestion()
         drawCircle()
+        numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
     }
     override fun onTip() {
         unhideTip()
@@ -109,7 +113,9 @@ class QuestMapActivity :
                     true
         )
         val questDatabase = QuestDataBase(this)
-        questionFragmentView.textView.text = questDatabase.getQuestion(singleton.nowQuestion)
+        questionFragmentView.questionText.text = questDatabase.getQuestion(singleton.nowQuestion)
+        questionFragmentView.questionText.movementMethod = ScrollingMovementMethod()
+        questionFragmentView.numberQuestion.text="${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
         questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
     }
 
