@@ -26,5 +26,7 @@ class Last : AppCompatActivity() {
         val seconds = sec % 60
         val time = String.format("%d:%02d:%02d", hours, minutes, seconds)
         resultTime.text = time
+        singleton.startTime = 0
+        singleton.finishTime = 0
     }
 }
