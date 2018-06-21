@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import android.location.Location
 import android.net.Uri
+import android.util.Log
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,7 +31,7 @@ class QuestMapActivity :
         AppCompatActivity(),
         OnMapReadyCallback,
         AnswerFragment.OnFragmentInteractionListener,
-        AnswerFragment.onNextListener {
+        AnswerFragment.OnNextListener {
     override fun onNext() {
         showQuestion()
     }
@@ -44,7 +45,8 @@ class QuestMapActivity :
     private var sec: Long = 0 //Для секундомера
     private var singleton = Singleton.instance
     private var running: Boolean = true
-    var frg1 : AnswerFragment = AnswerFragment.newInstance("","")
+    var frgTrue : AnswerFragment = AnswerFragment.newInstance("","")
+    var frgFalse : FalseAnswerFragment = FalseAnswerFragment.newInstance()
     private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
 
 
@@ -108,7 +110,10 @@ class QuestMapActivity :
 
     private fun showFragment(){
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.container, frg1 as Fragment)
+        if (QuestDataBase(this).checkAnswer(loc))
+            fragmentTransaction.replace(R.id.container, frgTrue as Fragment)
+        else
+            fragmentTransaction.replace(R.id.container, frgFalse as Fragment)
         fragmentTransaction.addToBackStack(null)
         //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
         fragmentTransaction.commit()
@@ -151,7 +156,6 @@ class QuestMapActivity :
         println(getDistanceFromLatLonInKm(loc,testHome))
     }
 
-
     fun getDistanceFromLatLonInKm(place1: LatLng, place2: LatLng) : Double { // функция, высчитывающая расстояния
         val R = 6371 // Радиус Земли в км
         var dLat = deg2rad(place2.latitude-place1.latitude) // deg2rad находится ниже
@@ -184,7 +188,6 @@ class QuestMapActivity :
                 "Coordinates: lat = %1$.4f, lon = %2$.4f, time = %3\$tF %3\$tT",
                 location.latitude, location.longitude)
     }
-
 
     private fun runTimer() { // сам секундомер
         val timerView = textView

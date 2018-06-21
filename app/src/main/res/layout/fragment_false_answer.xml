@@ -4,25 +4,24 @@
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:background="@android:color/white"
-    tools:context="com.deniskorotchenko.mapsp.AnswerFragment">
+    tools:context="com.deniskorotchenko.mapsp.FalseAnswerFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/falseTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:textAlignment="center"
-        android:textSize="18dp" />
+        android:text="TEXT" />
 
     <Button
-        android:id="@+id/next"
-        android:layout_width="match_parent"
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:text="Далее" />
-
+        android:layout_below="@+id/falseTextView"/>
 
 </RelativeLayout>

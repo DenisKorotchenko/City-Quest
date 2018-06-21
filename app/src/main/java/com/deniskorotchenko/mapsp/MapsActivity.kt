@@ -60,7 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    fun initFromDataBase(){
+    private fun initFromDataBase(){
         val markers = AllQuestsDataBase(this).getAllMarkers()
         Log.v("MapsActivity", markers.size.toString())
         for (marker : MarkerInAll in markers){

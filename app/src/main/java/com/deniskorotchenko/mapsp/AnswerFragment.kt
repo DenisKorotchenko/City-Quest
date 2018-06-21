@@ -27,9 +27,9 @@ class AnswerFragment : Fragment() {
     private var mParam2: String? = null
 
     private var mListener: OnFragmentInteractionListener? = null
-    val singleton = Singleton.instance
+    private val singleton = Singleton.instance
 
-    interface onNextListener {
+    interface OnNextListener {
         fun onNext() : Unit
     }
 
@@ -55,9 +55,8 @@ class AnswerFragment : Fragment() {
             }else
                 singleton.nowQuestion++
             val fTr = this.activity.fragmentManager.beginTransaction()
-            val onNextListenerVal = activity as onNextListener
+            val onNextListenerVal = activity as OnNextListener
             onNextListenerVal.onNext()
-
             fTr.remove(this)
             fTr.commit()
         }

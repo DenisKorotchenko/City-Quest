@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.google.android.gms.maps.model.LatLng
 
 class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.instance.DATABASE_NAME, null, Singleton.instance.DATABASE_VERSION) {
 
@@ -14,6 +15,58 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    }
+
+    fun checkAnswer(answer : LatLng) : Boolean {
+        val distance = getDistanceFromLatLonInKm(answer, currentQuestionLocation())
+
+        Log.v("Distance", distance.toString())
+        Log.v("Radius", currentQuestionRadius().toString())
+        return distance < currentQuestionRadius()
+    }
+
+    private fun currentQuestionLocation() : LatLng{
+        val db = readableDatabase
+        val cursor = db.query(singleton.curentTableQuest, arrayOf(QuestDataBase.LAT, QuestDataBase.LNG), ID + " = " + singleton.nowQuestion, null, null, null, null)
+
+        var lat = 0.0
+        var lng = 0.0
+        if (cursor.moveToFirst()) {
+            lat = cursor.getDouble(cursor.getColumnIndex(QuestDataBase.LAT))
+            lng = cursor.getDouble(cursor.getColumnIndex(QuestDataBase.LNG))
+        }
+        db.close()
+        cursor.close()
+        return LatLng(lat, lng)
+    }
+
+    private fun currentQuestionRadius() : Double {
+        val db = readableDatabase
+        val cursor = db.query(singleton.curentTableQuest, arrayOf(QuestDataBase.RADIUS), ID + " = " + singleton.nowQuestion, null, null, null, null)
+
+        var ans = 0.001
+        if (cursor.moveToFirst()) {
+            ans *= cursor.getDouble(cursor.getColumnIndex(QuestDataBase.RADIUS)).toDouble()
+        }
+        db.close()
+        cursor.close()
+        return ans
+    }
+
+    private fun getDistanceFromLatLonInKm(place1: LatLng, place2: LatLng) : Double { // функция, высчитывающая расстояния
+        val R = 6371 // Радиус Земли в км
+        val dLat = deg2rad(place2.latitude-place1.latitude) // deg2rad находится ниже
+        val dLon = deg2rad(place2.longitude-place1.longitude)
+        val a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(place1.latitude)) * Math.cos(deg2rad(place2.latitude)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2)
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+        val d = R * c // расстояние в км
+        return Math.abs(d)
+    }
+
+    fun deg2rad(deg: Double): Double{ // переводит градусы в радианы
+        return deg * (Math.PI/180)
     }
 
     fun getQuestion(number: Int) : String{
@@ -78,9 +131,9 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
         contentValues.clear()
         contentValues.put(QUESTION, "БЦ Таймс")
-        contentValues.put(LAT, 59.980556)
-        contentValues.put(LNG, 30.324234)
-        contentValues.put(RADIUS, 20)
+        contentValues.put(LAT, 49.980942)
+        contentValues.put(LNG, 30.3247186)
+        contentValues.put(RADIUS, 10)
         db.insert(table, null, contentValues)
 
         table = "quest2"
