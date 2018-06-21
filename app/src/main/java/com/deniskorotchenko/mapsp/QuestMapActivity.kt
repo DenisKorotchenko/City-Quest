@@ -3,6 +3,7 @@ package com.deniskorotchenko.mapsp
 import android.Manifest
 import android.app.Fragment
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -23,6 +24,8 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+
+import com.google.android.gms.maps.model.CircleOptions
 import kotlinx.android.synthetic.main.fragment_question_text.view.*
 import kotlinx.android.synthetic.main.fragment_tip.view.*
 import java.util.*
@@ -36,6 +39,7 @@ class QuestMapActivity :
     override fun onNext() {
         hideTip()
         showQuestion()
+        drawCircle()
         numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
     }
     override fun onTip() {
@@ -170,7 +174,6 @@ class QuestMapActivity :
                 loc = LatLng(p0?.latitude!!,p0?.longitude)// в этой переменной находятся свежие координаты
             }
         }) //какой-то звездец с получением координат
-
         onNext()
     }
 
@@ -191,4 +194,16 @@ class QuestMapActivity :
     }
 
 
+    fun drawCircle() {
+        QuestDataBase(this).currentQuestionLocation()
+        var random = Random()
+        var long = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
+        var lat = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
+        var a  = LatLng(lat, long)
+
+        var circle = mMap.addCircle(CircleOptions()
+                .center(a)
+                .radius(2000.0)
+                .strokeColor(Color.RED).strokeWidth(10.0.toFloat()))
+    }
 }
