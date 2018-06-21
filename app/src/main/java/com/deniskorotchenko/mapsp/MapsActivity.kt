@@ -64,7 +64,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val markers = AllQuestsDataBase(this).getAllMarkers()
         Log.v("MapsActivity", markers.size.toString())
         for (marker : MarkerInAll in markers){
-            val newMarker = mMap.addMarker(MarkerOptions()
+            var newMarker = mMap.addMarker(MarkerOptions()
                     .position(marker.coordinats)
                     .snippet("Нажмите на это окно один раз для старта")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
