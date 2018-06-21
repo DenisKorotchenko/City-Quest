@@ -19,6 +19,7 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)}
     }
 
+
     /*fun initDataBase(){
         val dbHelper = QuestDataBase(this)
         val db = dbHelper.writableDatabase
