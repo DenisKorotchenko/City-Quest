@@ -1,5 +1,6 @@
 package com.deniskorotchenko.mapsp
 
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 class Singleton private constructor() {
