@@ -24,15 +24,18 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="23dp"
             android:text="Я на месте!" />
-      
+
+
+
         <Button
             android:id="@+id/buttonToQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text=" ? " />
+            android:text=" ? " >
 
-            
+        </Button>
+
         <Button
             android:id="@+id/tip"
             android:layout_width="wrap_content"
