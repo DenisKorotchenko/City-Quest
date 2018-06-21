@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/resultTime"
         android:layout_centerHorizontal="true"
-        android:text="Congratulation!\n You done all tasks!\n Click to start again."
+        android:text="Поздравляем!\n Вы прошли все задания!\n Нажмите для начала нового квеста."
         android:textAlignment="center" />
 
     <TextView
@@ -21,14 +21,16 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tostart"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        ></TextView>
+        android:textAlignment="center"></TextView>
+
+
+
 
     <Button
         android:id="@+id/tostart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="To start"
+        android:text="К началу"
         android:textSize="18dp" />
 </RelativeLayout>
