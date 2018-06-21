@@ -56,6 +56,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.isMyLocationEnabled = true
         }
 
+        val center = LatLng(59.9367364, 30.3096995)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15F))
+
         initFromDataBase()
     }
 
