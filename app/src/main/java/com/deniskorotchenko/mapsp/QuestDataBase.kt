@@ -82,6 +82,18 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         return question
     }
 
+    fun getTip(number: Int) : String{
+        val db = readableDatabase
+        val cursor = db.query(singleton.curentTableQuest, arrayOf(QuestDataBase.TIP), ID + " = " + number, null, null, null, null)
+
+        var tip = "-1"
+        if (cursor.moveToFirst()) {
+            tip = cursor.getString(cursor.getColumnIndex(QuestDataBase.TIP))
+        }
+        db.close()
+        cursor.close()
+        return tip
+    }
     fun getNumberOfQuestions() : Int{
         val db = readableDatabase
         val cursor = db.query(singleton.curentTableQuest, null, null, null, null, null, null)
@@ -124,6 +136,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         db.execSQL(("create table if not exists " + table + " ( "
                 + ID + " INTEGER PRIMARY KEY, "
                 + QUESTION + " TEXT, "
+                + TIP + " TEXT, "
                 + LAT + " REAL, "
                 + LNG + " REAL, "
                 + RADIUS + " INTEGER "
@@ -131,6 +144,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
         contentValues.clear()
         contentValues.put(QUESTION, "БЦ Таймс")
+        contentValues.put(TIP, "204 ауд.")
         contentValues.put(LAT, 59.980942)
         contentValues.put(LNG, 30.3247186)
         contentValues.put(RADIUS, 100)
@@ -150,6 +164,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         db.execSQL(("create table if not exists " + table + " ( "
                 + ID + " INTEGER PRIMARY KEY, "
                 + QUESTION + " TEXT, "
+                + TIP + " TEXT, "
                 + LAT + " REAL, "
                 + LNG + " REAL, "
                 + RADIUS + " INTEGER "
@@ -157,6 +172,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
         contentValues.clear()
         contentValues.put(QUESTION, "Где-то далеко!")
+        contentValues.put(TIP, "Вы сюда не попадёте!!!")
         contentValues.put(LAT, 50.0)
         contentValues.put(LNG, 30.0)
         contentValues.put(RADIUS, 100)
@@ -167,6 +183,7 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
     companion object {
 
+        val TIP = "tip"
         val ID = "id"
         val QUESTION = "question"
         val LAT = "lat"

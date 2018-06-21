@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+import kotlinx.android.synthetic.main.fragment_tip.view.*
 import java.util.*
 
 
@@ -127,13 +128,15 @@ class QuestMapActivity :
     }
 
     private fun showTip(){
-        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
-        val questionWindow = PopupWindow(questionFragmentView,
+        val tipFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
+        val tipWindow = PopupWindow(tipFragmentView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 true
         )
-        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+        val tipText = QuestDataBase(this).getTip(singleton.nowQuestion)
+        tipFragmentView.tipTextView.text = tipText
+        tipWindow.showAtLocation(tipFragmentView, Gravity.CENTER, 0, 0)
     }
 
 
