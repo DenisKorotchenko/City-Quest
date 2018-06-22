@@ -17,6 +17,7 @@ class Last : AppCompatActivity() {
             val intent = Intent(this, StartActivity::class.java)
             startActivity(intent)
         }
+        supportActionBar!!.hide()
     }
 
     fun showResultTime (){
