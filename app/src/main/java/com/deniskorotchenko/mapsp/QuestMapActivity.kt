@@ -37,6 +37,18 @@ class QuestMapActivity :
         OnMapReadyCallback,
         AnswerFragment.AnswerFragmentListener,
         FalseAnswerFragment.FalseAnswerListener{
+
+
+    private lateinit var mMap: GoogleMap
+    private lateinit var mapView: View
+    private var sec: Long = 0 //Для секундомера
+    private var singleton = Singleton.instance
+    var frgTrue : AnswerFragment = AnswerFragment.newInstance()
+    var circle : Circle? = null // зона в которой находится нужное место
+    private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
+    var a  = LatLng(0.0,0.0)
+
+
     override fun onNext() {
         hideTip()
         showQuestion()
@@ -49,20 +61,18 @@ class QuestMapActivity :
             progress.secondaryProgress = 100
         else
             progress.secondaryProgress = (thisQ*100/numQ)
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a, 12.5F))
     }
+
+
     override fun onTip() {
         unhideTip()
     }
+
+
     override fun onBackFromAnswer() {
-
     }
-
-    private lateinit var mMap: GoogleMap
-    private lateinit var mapView: View
-    private var sec: Long = 0 //Для секундомера
-    private var singleton = Singleton.instance
-    var frgTrue : AnswerFragment = AnswerFragment.newInstance()
-    private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
 
     lateinit var circle : Circle
 
@@ -80,7 +90,6 @@ class QuestMapActivity :
         mapFragment.getMapAsync(this)
 
 
-
         buttonToQuestion.setOnClickListener {
             showQuestion()
         }
@@ -94,10 +103,10 @@ class QuestMapActivity :
         }
 
         supportActionBar!!.hide()
-
         runTimer()
         init()
     }
+
 
     private fun init() {
         singleton.nowQuestion = 1
@@ -107,14 +116,17 @@ class QuestMapActivity :
         }
     }
 
+
     private fun hideTip(){
         tip.visibility = View.GONE
     }
+
 
     private fun unhideTip(){
         tip.visibility = View.VISIBLE
         showTip()
     }
+
 
     private fun showQuestion(){
         val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
@@ -129,6 +141,7 @@ class QuestMapActivity :
         questionFragmentView.numberQuestion.text="${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
         questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
     }
+
 
     private fun showFragment(){
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -146,6 +159,7 @@ class QuestMapActivity :
         //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
         fragmentTransaction.commit()
     }
+
 
     private fun showTip(){
         val tipFragmentView = layoutInflater.inflate(R.layout.fragment_tip, null)
@@ -169,7 +183,6 @@ class QuestMapActivity :
         }
 
         val center = LatLng(59.9367364, 30.3096995)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15F))
 
         //Эта штука переносит кнопку "Моё местоположение" в правый нижний угол
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
@@ -188,6 +201,7 @@ class QuestMapActivity :
         }) //какой-то звездец с получением координат
         onNext()
     }
+
 
     private fun runTimer() { // сам секундомер
         val timerView = textView
@@ -209,13 +223,16 @@ class QuestMapActivity :
     fun drawCircle() {
         QuestDataBase(this).currentQuestionLocation()
         var random = Random()
-        var long = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
-        var lat = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
-        var a  = LatLng(lat, long)
+        var long = (random.nextInt(30000) - 15000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
+        var lat = (random.nextInt(30000) - 15000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
+        a  = LatLng(lat, long)
+        if (circle != null)
+            circle!!.isVisible = false
         circle = mMap.addCircle(CircleOptions()
                 .center(a)
-                .radius(2000.0)
-                .strokeColor(Color.RED).strokeWidth(10.0.toFloat()))
-
+                .radius(2500.0)
+                .strokeColor(Color.argb(127, 0,0,255)).strokeWidth(10.0.toFloat())
+                .fillColor(Color.argb(30,0,10,100)))
     }
 }
+

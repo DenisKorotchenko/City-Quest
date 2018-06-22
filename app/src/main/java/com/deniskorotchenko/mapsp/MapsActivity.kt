@@ -40,6 +40,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        supportActionBar!!.hide()
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -57,7 +59,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         val center = LatLng(59.9367364, 30.3096995)
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15F))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 11F))
 
         initFromDataBase()
     }
