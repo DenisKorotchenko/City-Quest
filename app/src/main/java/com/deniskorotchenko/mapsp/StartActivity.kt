@@ -18,7 +18,7 @@ class StartActivity : AppCompatActivity() {
         button.setOnClickListener{val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)}
 
-        supportActionBar!!.hide()
+        supportActionBar!!.title = ""
     }
 
 
