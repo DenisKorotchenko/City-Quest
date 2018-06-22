@@ -14,6 +14,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.location.Location
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.MotionEvent
 
@@ -28,6 +29,7 @@ import android.widget.RelativeLayout
 import com.google.android.gms.maps.model.Circle
 
 import com.google.android.gms.maps.model.CircleOptions
+import kotlinx.android.synthetic.main.fragment_question_text.view.*
 import kotlinx.android.synthetic.main.fragment_tip.view.*
 import java.util.*
 
@@ -124,7 +126,7 @@ class QuestMapActivity :
 
 
     private fun showQuestion(){
-        /*val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
+        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
         val questionWindow = PopupWindow(questionFragmentView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -134,13 +136,13 @@ class QuestMapActivity :
         questionFragmentView.questionText.text = questDatabase.getQuestion(singleton.nowQuestion)
         questionFragmentView.questionText.movementMethod = ScrollingMovementMethod()
         questionFragmentView.numberQuestion.text="${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
-        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)*/
-        val fragmentTransaction = fragmentManager.beginTransaction()
+        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+        /*val fragmentTransaction = fragmentManager.beginTransaction()
         val frgQuestion = QuestionFragment.newInstance()
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_to_bottom)
         fragmentTransaction.replace(R.id.container, frgQuestion as Fragment)
         fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
+        fragmentTransaction.commit()*/
     }
 
 
