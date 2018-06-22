@@ -27,13 +27,7 @@
             android:alpha="64"
             android:background="@drawable/curclebuttontopleft"/>
 
-        <TextView
-            android:id="@+id/numQuestion"
-            android:textSize="11dp"
-            android:textColor="@android:color/holo_red_dark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"/>
+
 
         <Button
             android:id="@+id/buttonToQuestion"
@@ -66,17 +60,28 @@
             android:textSize="30sp"
             android:layout_marginBottom="30dp" />
 
-
-        <!--<fragment
-            android:id="@+id/fragment_fragmentright"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <fragment
-            android:id="@+id/fragment_fragmentnotright"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
-
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/progressLayout">
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:progressDrawable="@drawable/progressbarmystyle"
+                />
+            <TextView
+                android:id="@+id/numQuestion"
+                android:textSize="12dp"
+                android:textColor="#7F00FF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
 
     </RelativeLayout>
 

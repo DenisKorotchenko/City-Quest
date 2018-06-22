@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+import com.google.android.gms.maps.model.Circle
 
 import com.google.android.gms.maps.model.CircleOptions
 import kotlinx.android.synthetic.main.fragment_question_text.view.*
@@ -41,6 +42,13 @@ class QuestMapActivity :
         showQuestion()
         drawCircle()
         numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
+        val numQ = QuestDataBase(this).getNumberOfQuestions()
+        val thisQ = singleton.nowQuestion
+        progress.progress = (thisQ-1)*100/numQ
+        if (thisQ == numQ)
+            progress.secondaryProgress = 100
+        else
+            progress.secondaryProgress = (thisQ*100/numQ)
     }
     override fun onTip() {
         unhideTip()
@@ -55,6 +63,8 @@ class QuestMapActivity :
     private var singleton = Singleton.instance
     var frgTrue : AnswerFragment = AnswerFragment.newInstance()
     private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
+
+    lateinit var circle : Circle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +93,7 @@ class QuestMapActivity :
             showFragment()
         }
 
+        supportActionBar!!.hide()
 
         runTimer()
         init()
@@ -165,7 +176,8 @@ class QuestMapActivity :
         val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
-        rlp.setMargins(0,0,30,30)
+        rlp.setMargins(0,0,30,60)
+        
       
         mMap.setOnMyLocationChangeListener(object : GoogleMap.OnMyLocationChangeListener {
             override fun onMyLocationChange(p0: Location?) {
@@ -200,10 +212,10 @@ class QuestMapActivity :
         var long = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
         var lat = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
         var a  = LatLng(lat, long)
-
-        var circle = mMap.addCircle(CircleOptions()
+        circle = mMap.addCircle(CircleOptions()
                 .center(a)
                 .radius(2000.0)
                 .strokeColor(Color.RED).strokeWidth(10.0.toFloat()))
+
     }
 }
