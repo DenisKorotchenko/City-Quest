@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
 import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
+import com.google.android.gms.maps.model.Circle
 
 import com.google.android.gms.maps.model.CircleOptions
 import kotlinx.android.synthetic.main.fragment_question_text.view.*
@@ -192,18 +193,19 @@ class QuestMapActivity :
             }
         })
     }
-
+    var circle : Circle? = null
 
     fun drawCircle() {
         QuestDataBase(this).currentQuestionLocation()
         var random = Random()
-        var long = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
-        var lat = (random.nextInt(20000) - 10000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
+        var long = (random.nextInt(40000) - 20000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().longitude
+        var lat = (random.nextInt(40000) - 20000 ).toDouble() / 1000000 + QuestDataBase(this).currentQuestionLocation().latitude
         var a  = LatLng(lat, long)
-
-        var circle = mMap.addCircle(CircleOptions()
+        if (circle != null)
+            circle!!.radius = 0.0
+        circle = mMap.addCircle(CircleOptions()
                 .center(a)
-                .radius(2000.0)
+                .radius(3000.0)
                 .strokeColor(Color.RED).strokeWidth(10.0.toFloat()))
     }
 }
