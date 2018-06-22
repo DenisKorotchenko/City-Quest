@@ -54,6 +54,14 @@ class QuestMapActivity :
         showQuestion()
         drawCircle()
         numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
+        val numQ = QuestDataBase(this).getNumberOfQuestions()
+        val thisQ = singleton.nowQuestion
+        progress.progress = (thisQ-1)*100/numQ
+        if (thisQ == numQ)
+            progress.secondaryProgress = 100
+        else
+            progress.secondaryProgress = (thisQ*100/numQ)
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a, 12.5F))
     }
 
@@ -65,6 +73,8 @@ class QuestMapActivity :
 
     override fun onBackFromAnswer() {
     }
+
+    lateinit var circle : Circle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +102,7 @@ class QuestMapActivity :
             showFragment()
         }
 
+        supportActionBar!!.hide()
         runTimer()
         init()
     }
@@ -178,7 +189,8 @@ class QuestMapActivity :
         val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
-        rlp.setMargins(0,0,30,30)
+        rlp.setMargins(0,0,30,60)
+        
       
         mMap.setOnMyLocationChangeListener(object : GoogleMap.OnMyLocationChangeListener {
             override fun onMyLocationChange(p0: Location?) {

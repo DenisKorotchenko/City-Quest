@@ -45,7 +45,8 @@
         <activity
             android:name=".QuestMapActivity"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_quest_map" />
+            android:label="@string/title_activity_quest_map"
+            />
         <activity
             android:name=".Last"
             android:screenOrientation="portrait" />
