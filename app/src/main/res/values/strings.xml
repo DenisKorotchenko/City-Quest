@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MapsP</string>
+    <string name="app_name">City Quest</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_quest_map">Map</string>
 

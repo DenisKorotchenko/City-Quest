@@ -62,7 +62,7 @@ class QuestMapActivity :
         else
             progress.secondaryProgress = (thisQ*100/numQ)
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a, 12.5F))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a, 12.2F))
     }
 
 
@@ -74,7 +74,6 @@ class QuestMapActivity :
     override fun onBackFromAnswer() {
     }
 
-    lateinit var circle : Circle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -182,7 +181,6 @@ class QuestMapActivity :
             mMap.isMyLocationEnabled = true
         }
 
-        val center = LatLng(59.9367364, 30.3096995)
 
         //Эта штука переносит кнопку "Моё местоположение" в правый нижний угол
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
