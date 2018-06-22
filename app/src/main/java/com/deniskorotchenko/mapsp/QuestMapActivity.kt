@@ -1,6 +1,7 @@
 package com.deniskorotchenko.mapsp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Fragment
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -13,7 +14,8 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.location.Location
-import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.view.MotionEvent
 
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -22,12 +24,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.activity_quest_map.*
-import kotlinx.android.synthetic.main.activity_quest_map.view.*
 import android.widget.RelativeLayout
 import com.google.android.gms.maps.model.Circle
 
 import com.google.android.gms.maps.model.CircleOptions
-import kotlinx.android.synthetic.main.fragment_question_text.view.*
 import kotlinx.android.synthetic.main.fragment_tip.view.*
 import java.util.*
 
@@ -37,7 +37,6 @@ class QuestMapActivity :
         OnMapReadyCallback,
         AnswerFragment.AnswerFragmentListener,
         FalseAnswerFragment.FalseAnswerListener{
-
 
     private lateinit var mMap: GoogleMap
     private lateinit var mapView: View
@@ -65,7 +64,6 @@ class QuestMapActivity :
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(a, 12.2F))
     }
 
-
     override fun onTip() {
         unhideTip()
     }
@@ -73,8 +71,6 @@ class QuestMapActivity :
 
     override fun onBackFromAnswer() {
     }
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -128,7 +124,7 @@ class QuestMapActivity :
 
 
     private fun showQuestion(){
-        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
+        /*val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
         val questionWindow = PopupWindow(questionFragmentView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -138,7 +134,13 @@ class QuestMapActivity :
         questionFragmentView.questionText.text = questDatabase.getQuestion(singleton.nowQuestion)
         questionFragmentView.questionText.movementMethod = ScrollingMovementMethod()
         questionFragmentView.numberQuestion.text="${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
-        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
+        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)*/
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val frgQuestion = QuestionFragment.newInstance()
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_to_bottom)
+        fragmentTransaction.replace(R.id.container, frgQuestion as Fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
 
