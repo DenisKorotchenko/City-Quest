@@ -15,6 +15,7 @@
         android:textSize="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:textColor="#000000"
         android:text="Вы находитесь не в нужном месте. Хотите получить подсказку?" />
 
     <Button
