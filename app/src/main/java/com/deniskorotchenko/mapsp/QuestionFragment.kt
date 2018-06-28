@@ -4,10 +4,13 @@ package com.deniskorotchenko.mapsp
 import android.content.Context
 import android.os.Bundle
 import android.app.Fragment
+import android.opengl.Visibility
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_question.*
 import kotlinx.android.synthetic.main.fragment_question.view.*
+import kotlinx.android.synthetic.main.fragment_tip.view.*
 
 
 /**
@@ -32,12 +35,23 @@ class QuestionFragment : Fragment(){
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_question, container, false)
         view.questionFragmentText.text = QuestDataBase(this.activity as Context).getQuestion(singleton.nowQuestion)
+        view.closeQuestionFragment.setOnClickListener {
+            close()
+        }
+        view.tipFragmentText.text = QuestDataBase(this.activity as Context).getTip(singleton.nowQuestion)
+        if (needTip == false){
+            view.tipFragmentText.visibility = View.GONE
+            view.textTipZag.visibility = View.GONE
+        }
         return view
     }
 
     companion object {
-        fun newInstance(): QuestionFragment {
-            return QuestionFragment()
+        var needTip : Boolean = true
+        fun newInstance(needTip : Boolean): QuestionFragment {
+            QuestionFragment.needTip = needTip
+            val view = QuestionFragment()
+            return view
         }
     }
 

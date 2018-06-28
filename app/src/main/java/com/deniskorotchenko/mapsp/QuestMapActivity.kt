@@ -47,11 +47,12 @@ class QuestMapActivity :
     var frgTrue : AnswerFragment = AnswerFragment.newInstance()
     var circle : Circle? = null // зона в которой находится нужное место
     private var loc: LatLng = LatLng(0.0, 0.0)//переменнадя с моими координатами
+    var tipVisibility : Boolean = false
     var a  = LatLng(0.0,0.0)
 
 
     override fun onNext() {
-        hideTip()
+        tipVisibility = false
         showQuestion()
         drawCircle()
         numQuestion.text = "${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
@@ -67,7 +68,7 @@ class QuestMapActivity :
     }
 
     override fun onTip() {
-        unhideTip()
+        tipVisibility = true
     }
 
 
@@ -91,10 +92,6 @@ class QuestMapActivity :
             showQuestion()
         }
 
-        tip.setOnClickListener {
-            showTip()
-        }
-
         imhere2.setOnClickListener {
             showFragment()
         }
@@ -115,18 +112,17 @@ class QuestMapActivity :
 
 
     private fun hideTip(){
-        tip.visibility = View.GONE
+        tipVisibility = false
     }
 
 
     private fun unhideTip(){
-        tip.visibility = View.VISIBLE
-        showTip()
+        tipVisibility = true
     }
 
 
     private fun showQuestion(){
-        val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
+        /*val questionFragmentView = layoutInflater.inflate(R.layout.fragment_question_text, null)
         val questionWindow = PopupWindow(questionFragmentView,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -136,13 +132,13 @@ class QuestMapActivity :
         questionFragmentView.questionText.text = questDatabase.getQuestion(singleton.nowQuestion)
         questionFragmentView.questionText.movementMethod = ScrollingMovementMethod()
         questionFragmentView.numberQuestion.text="${singleton.nowQuestion}/${QuestDataBase(this).getNumberOfQuestions()}"
-        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)
-        /*val fragmentTransaction = fragmentManager.beginTransaction()
-        val frgQuestion = QuestionFragment.newInstance()
+        questionWindow.showAtLocation(questionFragmentView, Gravity.CENTER, 0, 0)*/
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val frgQuestion = QuestionFragment.newInstance(tipVisibility)
         fragmentTransaction.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_to_bottom)
         fragmentTransaction.replace(R.id.container, frgQuestion as Fragment)
         fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()*/
+        fragmentTransaction.commit()
     }
 
 
@@ -151,7 +147,7 @@ class QuestMapActivity :
         if (QuestDataBase(this).checkAnswer(loc))
             fragmentTransaction.replace(R.id.container, frgTrue as Fragment)
         else {
-            val frgFalse : FalseAnswerFragment = if (this.tip.visibility == View.GONE)
+            val frgFalse : FalseAnswerFragment = if (tipVisibility == false)
                 FalseAnswerFragment.newInstance(true)
             else{
                 FalseAnswerFragment.newInstance(false)

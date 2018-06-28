@@ -1,13 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:clickable="true"
     tools:context="com.deniskorotchenko.mapsp.QuestionFragment">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_centerInParent="true">
         <RelativeLayout
@@ -16,13 +16,51 @@
             android:layout_height="match_parent"
             >
             <TextView
+                android:id="@+id/textQuestionZag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewStart"
+                android:text="Вопрос:"
+                android:textColor="#FF00FF"
+                android:textSize="18dp"
+                android:gravity="start"
+                android:layout_alignParentTop="true"/>
+            <TextView
+                android:layout_below="@+id/textQuestionZag"
                 android:clickable="true"
                 android:id="@+id/questionFragmentText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textAlignment="center"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textTipZag"
+                android:textSize="18dp"
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:text="Подсказка"
+                android:textColor="#FF00FF"
+                android:layout_below="@id/questionFragmentText"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:layout_below="@id/textTipZag"
+                android:id="@+id/tipFragmentText"/>
+            <Button
+                android:id="@+id/closeQuestionFragment"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:text=" X ">
+
+            </Button>
         </RelativeLayout>
     </ScrollView>
 
