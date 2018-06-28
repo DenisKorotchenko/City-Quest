@@ -69,6 +69,7 @@ class QuestMapActivity :
 
     override fun onTip() {
         tipVisibility = true
+        showQuestion()
     }
 
 
