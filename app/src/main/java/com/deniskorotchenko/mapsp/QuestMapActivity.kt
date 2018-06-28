@@ -190,7 +190,8 @@ class QuestMapActivity :
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP,0)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
         rlp.setMargins(0,0,30,60)
-        
+
+        mMap.uiSettings.isCompassEnabled = false // Отключаю компас
       
         mMap.setOnMyLocationChangeListener(object : GoogleMap.OnMyLocationChangeListener {
             override fun onMyLocationChange(p0: Location?) {
