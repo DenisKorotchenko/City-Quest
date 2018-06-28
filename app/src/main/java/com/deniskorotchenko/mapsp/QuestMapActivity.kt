@@ -155,6 +155,7 @@ class QuestMapActivity :
             }
             fragmentTransaction.replace(R.id.container, frgFalse as Fragment)
         }
+        fragmentTransaction.setCustomAnimations(R.animator.slide_in_bottom, R.animator.slide_to_bottom)
         fragmentTransaction.addToBackStack(null)
         //fragmentTransaction.add(R.id.container, frg1 as? Fragment)
         fragmentTransaction.commit()

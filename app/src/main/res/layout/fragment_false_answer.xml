@@ -6,7 +6,7 @@
     android:background="@android:color/white"
     tools:context="com.deniskorotchenko.mapsp.FalseAnswerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:id="@+id/falseTextView"
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:textSize="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="Вы не в нужном месте. Хотите подсказку?" />
+        android:text="Вы находитесь не в нужном месте. Хотите получить подсказку?" />
 
     <Button
         android:id="@+id/buttonHide"
@@ -23,13 +23,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/falseTextView"
-        android:text="ДА"/>
+        android:text="Да"
+        android:background="@drawable/fullcurclebutton"/>
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/buttonHide"
-        android:text="НАЗАД"/>
+        android:text="Вернуться"
+        android:background="@drawable/fullcurclebutton"/>
 
 </RelativeLayout>
