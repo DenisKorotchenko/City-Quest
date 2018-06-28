@@ -186,10 +186,10 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
 
         table = "quest2"
         contentValues.clear()
-        contentValues.put(LAT, 50.0)
-        contentValues.put(LNG, 30.0)
+        contentValues.put(LAT, 59.927661)
+        contentValues.put(LNG, 30.345923)
         contentValues.put(AllQuestsDataBase.TABLENAME, "quest2")
-        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Дорога в никуда")
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "По местам Достоевского")
         db.insert(allTable, null, contentValues)
 
         try {
@@ -206,11 +206,72 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
                 +");"))
 
         contentValues.clear()
-        contentValues.put(QUESTION, "Где-то далеко!")
-        contentValues.put(TIP, "Вы сюда не попадёте!!!")
-        contentValues.put(LAT, 50.0)
-        contentValues.put(LNG, 30.0)
-        contentValues.put(RADIUS, 1000)
+        contentValues.put(QUESTION, "В доме на ... жил Фёдор Достоевский, здесь же он скончался 28 января " +
+                "(9 февраля) 1881 года. К 150-тилетию со дня рождения писателя, которое отпраздновали в 1971 году, в этом месте открылся музей")
+        contentValues.put(TIP, "В доме на Кузнечном переулке жил Фёдор Достоевский")
+        contentValues.put(LAT, 59.927419)
+        contentValues.put(LNG, 30.350546)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Отрывок из романа 'Идиот': 'Дом этот был большой, мрачный, в три этажа, без всякой архитектуры, " +
+                "цвету грязно-зелёного. Некоторые, очень, впрочем, немногие дома в этом роде, выстроенные в конце прошлого столетия, уцелели " +
+                "именно в этих улицах Петербурга (в котором всё так скоро меняется) почти без перемен'")
+        contentValues.put(TIP, "Именно этот дом на Гороховой улице считают домом Рогожина")
+        contentValues.put(LAT, 59.928909)
+        contentValues.put(LNG, 30.321239)
+        contentValues.put(RADIUS, 100)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "'Все торговцы на столах, на лотках, в лавках и лавочках запирали свои заведения или снимали " +
+                "и прибирали свой товар и расходились по домам, равно как и их покупатели. Около харчевен в нижних этажах, на грязных " +
+                "и вонючих дворах домов, а наиболее у распивочных, толпилось много разного и всякого сорта промышленников и лохмотников'")
+        contentValues.put(TIP, "В 1930-е годы эти места подверглись реконструкции: территорию благоустроили, рынок снесли. В наше время это место" +
+                " совсем не похоже на то, что описывал Ф.М. Достоевский")
+        contentValues.put(LAT, 59.926796)
+        contentValues.put(LNG, 30.317838)
+        contentValues.put(RADIUS, 300)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "'Каморка его приходилась самой кровлей высокого пятиэтажного дома и походила более на шкаф, чем на квартиру. " +
+                "Квартирная же хозяйка его, у которой он нанимал эту каморку с обедом и прислугой, помещалась одною лестницей ниже, " +
+                "в отдельной квартире, и каждый раз, при выходе на улицу, ему непременно надо было пройти мимо хозяйкиной кухни, почти всегда отворённой на лестницу'")
+        contentValues.put(TIP, "речь конечно же идёт о доме Раскольникова")
+        contentValues.put(LAT, 59.927692)
+        contentValues.put(LNG, 30.311023)
+        contentValues.put(RADIUS, 100)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Здесь начинается действие романа Ф.М. Достоевского 'Преступление и наказание': '" +
+                "В начале июля, в чрезвычайно жаркое время, под вечер, один молодой человек вышел из своей каморки, которую " +
+                "нанимал от жильцов в С-м переулке, на улицу и медленно, как бы в нерешимости, отправился к ... мосту'")
+        contentValues.put(TIP, "В оригинальном тексте: '... отправился к К-ну мосту'")
+        contentValues.put(LAT, 59.925828)
+        contentValues.put(LNG, 30.313643)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "По мнению исследователей творчества Ф.М. Достоевского, в этот дом писатель поселил героиню старуху-процентщицу, Алёну Ивановну - '" +
+                "кроршечную, сухую старушонку, лет шестидесяти, с вострыми и злыми глазками, с маленьким вострым носом и простоволосую'")
+        contentValues.put(TIP, "Изучите внимательно набережную канала Грибоедова")
+        contentValues.put(LAT, 59.924599)
+        contentValues.put(LNG, 30.303217)
+        contentValues.put(RADIUS, 100)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "2 декабря 1849 года в 8 часов утра на ... привели арестантов, в их числе был и Достоевский. К этому времени " +
+                "на плацу возвели эшафот из дерева, который заранее обтянули чёрным сукном. " +
+                "После команды 'строить шеренгу' арестантов выстраивают в ряд и ведут к эшафоту. О каком событии идёт речь? Где разворачивались описанные события?")
+        contentValues.put(TIP, "Речь идёт о казни петрашевцев на Семёновском плацу")
+        contentValues.put(LAT, 59.921145)
+        contentValues.put(LNG, 30.333012)
+        contentValues.put(RADIUS, 250)
         db.insert(table, null, contentValues)
 
         db.close()
