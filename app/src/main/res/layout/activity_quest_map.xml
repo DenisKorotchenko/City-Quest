@@ -13,80 +13,69 @@
 
     <RelativeLayout tools:ignore="ExtraText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/container">
-            <RelativeLayout
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+        <Button
+            android:id="@+id/imhere2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="23dp"
+            android:text=" Я на месте "
+            android:alpha="64"
+            android:background="@drawable/curclebuttontopleft"/>
+
+
+
+        <Button
+            android:id="@+id/buttonToQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=" ? "
+            android:background="@drawable/curclebuttontopright">
+
+        </Button>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="112dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="0:00:00"
+            android:textSize="30sp"
+            android:layout_marginBottom="30dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/progressLayout">
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:ignore="UselessParent">
-            <Button
-                android:id="@+id/imhere2"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="23dp"
-                android:text=" Я на месте "
-                android:alpha="64"
-                android:background="@drawable/curclebuttontopleft"/>
-
-
-
-            <Button
-                android:id="@+id/buttonToQuestion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text=" ? "
-                android:background="@drawable/curclebuttontopright">
-
-            </Button>
-
-            <Button
-                android:id="@+id/tip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/buttonToQuestion"
-                android:text="подсказка"
-                android:visibility="visible"
-                android:background="@drawable/curclebuttonmiddleright"/>
-
-
+                android:layout_centerInParent="true"
+                android:progressDrawable="@drawable/progressbarmystyle"
+                />
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="112dp"
-                android:layout_height="35dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="0:00:00"
-                android:textSize="30sp"
-                android:layout_marginBottom="30dp" />
-
-            <RelativeLayout
+                android:id="@+id/numQuestion"
+                android:textSize="12dp"
+                android:textColor="#7F00FF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/progressLayout">
-                <ProgressBar
-                    android:id="@+id/progress"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:progressDrawable="@drawable/progressbarmystyle"
-                    />
-                <TextView
-                    android:id="@+id/numQuestion"
-                    android:textSize="12dp"
-                    android:textColor="#7F00FF"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    />
+                android:layout_centerInParent="true"
+                />
             </RelativeLayout>
-        </RelativeLayout>
 
+        </RelativeLayout>
     </RelativeLayout>
 
 </fragment>
