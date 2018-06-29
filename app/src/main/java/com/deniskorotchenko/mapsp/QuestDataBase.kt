@@ -274,6 +274,83 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(RADIUS, 250)
         db.insert(table, null, contentValues)
 
+        table = "quest3"
+        contentValues.clear()
+        contentValues.put(LAT, 59.979225)
+        contentValues.put(LNG, 30.269985)
+        contentValues.put(AllQuestsDataBase.TABLENAME, table)
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Дворцы и замки Санкт-Петербурга")
+        db.insert(allTable, null, contentValues)
+
+        try {
+            db.delete(table, null, null)
+        }
+        catch (e:Exception){}
+        db.execSQL(("create table if not exists " + table + " ( "
+                + ID + " INTEGER PRIMARY KEY, "
+                + QUESTION + " TEXT, "
+                + TIP + " TEXT, "
+                + LAT + " REAL, "
+                + LNG + " REAL, "
+                + RADIUS + " INTEGER "
+                +");"))
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Один из дворцов Санкт-Петербурга, памятник времен Екатерины II, загородная императорская резиденция. " +
+                "Расположен на одном из многочсленных островов Санкт-Петербурга")
+        contentValues.put(TIP, "Сейчас там расположилась 'Академия талантов'")
+        contentValues.put(LAT, 59.979774)
+        contentValues.put(LNG, 30.304516)
+        contentValues.put(RADIUS, 300)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Этот дворец был построен по указанию Екатерины II для своего фаворита, светлейшего князя Потёмкина. " +
+                "На возведение и отделку дворца было затрачено около 400 000 рублей золотом. " +
+                "Дворец получил своё название по титулу князя ..., который был пожалован временщику в 1787 году, " +
+                "после присоединения Крым к Российской Империи")
+        contentValues.put(TIP, "Крым иногда называют Тавридой")
+        contentValues.put(LAT, 59.948292)
+        contentValues.put(LNG, 30.375981)
+        contentValues.put(RADIUS, 250)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Дворец был построен в стиле Петровского барокко по проекту Трезини. " +
+                "Это одно из старейших зданий города")
+        contentValues.put(TIP, "Туристы приходят посмотреть не столько сам дворец, сколько сад, в котором " +
+                "он расположен, и решётку, ограждающую этот сад")
+        contentValues.put(LAT, 59.947328)
+        contentValues.put(LNG, 30.335962)
+        contentValues.put(RADIUS, 250)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Про это место ходит много легенд, одна из них гласит, что " +
+                "призрак убитого заговорщиками императора не смог покинуть место своей смерти " +
+                "и до сих пор обитает в стенах этого здания")
+        contentValues.put(TIP, "Речь идёт об единственном замке в городе")
+        contentValues.put(LAT, 59.940362)
+        contentValues.put(LNG, 30.337831)
+        contentValues.put(RADIUS, 250)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Один из императорских дворцов. Получил своё название в честь моста, располоэенного рядом")
+        contentValues.put(TIP, "На этом мосту расположились 4 скульптуры, изображающие укрощение коней")
+        contentValues.put(LAT, 59.932934)
+        contentValues.put(LNG, 30.340344)
+        contentValues.put(RADIUS, 250)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Символ и визитная карточка Культурной столицы России")
+        contentValues.put(TIP, "Заглянги на Дворцовую площадь, может увидиш что, или вспомнишь")
+        contentValues.put(LAT, 59.940310)
+        contentValues.put(LNG, 30.314032)
+        contentValues.put(RADIUS, 300)
+        db.insert(table, null, contentValues)
+        
         db.close()
     }
 
