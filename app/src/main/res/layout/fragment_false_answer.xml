@@ -25,7 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/falseTextView"
         android:text="Да"
-        android:background="@drawable/fullcurclebutton"/>
+        android:background="#DEE2C0"/>
+
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="match_parent"
@@ -33,6 +34,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/buttonHide"
         android:text="Вернуться"
-        android:background="@drawable/fullcurclebutton"/>
+        android:background="#DEE2C0"/>
 
 </RelativeLayout>

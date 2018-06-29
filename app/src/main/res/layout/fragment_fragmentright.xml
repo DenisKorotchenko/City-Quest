@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:text="Далее" />
+        android:text="Далее"
+        android:background="#DEE2C0"/>
 
 
 </RelativeLayout>
