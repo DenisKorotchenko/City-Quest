@@ -350,7 +350,117 @@ class QuestDataBase(context: Context) : SQLiteOpenHelper(context, Singleton.inst
         contentValues.put(LNG, 30.314032)
         contentValues.put(RADIUS, 300)
         db.insert(table, null, contentValues)
-        
+
+
+        table = "quest4"
+        contentValues.clear()
+        contentValues.put(LAT, 59.884297)
+        contentValues.put(LNG, 29.911035)
+        contentValues.put(AllQuestsDataBase.TABLENAME, table)
+        contentValues.put(AllQuestsDataBase.QUESTSTARTTEXT, "Нижний парк Петергофа")
+        db.insert(allTable, null, contentValues)
+
+        try {
+            db.delete(table, null, null)
+        }
+        catch (e:Exception){}
+        db.execSQL(("create table if not exists " + table + " ( "
+                + ID + " INTEGER PRIMARY KEY, "
+                + QUESTION + " TEXT, "
+                + TIP + " TEXT, "
+                + LAT + " REAL, "
+                + LNG + " REAL, "
+                + RADIUS + " INTEGER "
+                +");"))
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Считается, что на его создание повлияло увлечение двора Китаем, что " +
+                "отразилось также в возведении \"китайских\" построек в Царском Селе. В 60-х годах 20 века" +
+                " кровле фонтана придали облик гриба-мухомора. Этот фонтан-шутиха вам и нужен.")
+        contentValues.put(TIP, "Фонтан имеет форму зонта ")
+        contentValues.put(LAT, 59.885079)
+        contentValues.put(LNG, 29.918769)
+        contentValues.put(RADIUS, 50)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "До Нижнего парка Петергофа можно добраться на автобусе, " +
+                "электричке, метеоре по заливу. Мало кто знает, что в парке нередко приземляется " +
+                "вертолет. Вам нужно на место его остановки.")
+        contentValues.put(TIP, "Ищите на берегу залива в западной части парка")
+        contentValues.put(LAT, 59.888709)
+        contentValues.put(LNG, 29.896570)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Этот дворец получил своё имя в память о посещении Петром I в " +
+                "1717 резиденции французских королей в Марли-ле-Руа под Парижем. Подойдите ко " +
+                "дворцу со стороны большего из окружающих его прудов")
+        contentValues.put(TIP, "Внимательно посмотри на карту - дворец окружён прудами")
+        contentValues.put(LAT, 59.888709)
+        contentValues.put(LNG, 29.896570)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Следуя по аллее вдоль берега Марлинского пруда, посетитель парка" +
+                " невольно останавливается перед обширной площадкой с каскадом и двумя высокими фонтанами." +
+                " Подойдите к тому из них, который ближе к Самсону.")
+        contentValues.put(TIP, "Высокий каскад с 22 мраморными ступеньками")
+        contentValues.put(LAT, 59.887368)
+        contentValues.put(LNG, 29.897406)
+        contentValues.put(RADIUS, 100)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "В центре композиции этого фонтана расположена скульптура Тритона," +
+                " борющегося с морским чудовищем, изображенным в виде крокодила с рыбьим хвостом. Из" +
+                " его пасти вырывается водяная струя высотой в восемь метров. Четыре черепахи, вытянув " +
+                "от страха шеи, расползаются в разные стороны. Из их ртов также бьют клокочущие струи воды.")
+        contentValues.put(TIP, "фонтан \"Оранжерейный\"")
+        contentValues.put(LAT, 59.884248)
+        contentValues.put(LNG, 29.913753)
+        contentValues.put(RADIUS, 50)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "В мае 2001 года на Монплезирской аллее Нижнего парка, неподалеку " +
+                "от Римских фонтанов, появилась шутиха, которая не работала 280 лет. Она была сооружена" +
+                " по затее Петра I архитектором Н. Микетти, а первый пуск состоялся в 1721 году. " +
+                "По царскому замыслу значительная часть аллеи внезапно перекрывалась водяной аркой " +
+                "из трехсот струй, и все гуляющие оказывались мокрыми с головы до пят. Неслучайно " +
+                "шутиху в петровское время называли \"Мочильной дорогой\". Однако вскоре после " +
+                "открытия фонтан исчез. Видимо, затея оказалась слишком грубой.")
+        contentValues.put(TIP, "Рядом с шутихой \"Зонтиком\"")
+        contentValues.put(LAT, 59.884386)
+        contentValues.put(LNG, 29.917390)
+        contentValues.put(RADIUS, 50)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "Вопрос: Их внешний облик скопирован с двух фонтанов," +
+                " установленных в Риме, на площади перед собором Святого Петра. Из-за этого фонтаны" +
+                " получили такое название. Вам нужно место между этими фонтанами.")
+        contentValues.put(TIP, "Вам нужны Римские фонтаны ")
+        contentValues.put(LAT, 59.884103)
+        contentValues.put(LNG, 29.917059)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+        contentValues.clear()
+        contentValues.put(QUESTION, "В восточной части парка сохранились следы планировки Лабиринта." +
+                " Он представлял собой квадратный участок площадью около 2 гектаров. В центре, куда " +
+                "вам нужно попасть, находился проточный овальный бассейн. От площади вокруг бассейна " +
+                "расходились восемь дорожек. Их пересекала кольцевая аллея, разделявшая участок на " +
+                "шестнадцать куртин, в которых высаживали цветы.")
+        contentValues.put(TIP, "Поищите на берегу Финского залива")
+        contentValues.put(LAT, 59.884529)
+        contentValues.put(LNG, 29.929031)
+        contentValues.put(RADIUS, 75)
+        db.insert(table, null, contentValues)
+
+
         db.close()
     }
 
