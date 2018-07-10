@@ -20,7 +20,6 @@ class StartActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         QuestDataBase(this).initDataBase()
         setContentView(R.layout.activity_start)
         button.setOnClickListener{
@@ -97,8 +96,4 @@ class StartActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this,
                 arrayOf(permissionName), permissionRequestCode)
     }
-
-
-
-
 }
